@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.mdashl"
-version = "1.1.5"
+version = "1.1.6"
 
 repositories {
     jcenter()
@@ -15,9 +15,9 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("com.squareup.okhttp3:okhttp:3.13.1")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.8")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
+    api("com.squareup.okhttp3:okhttp:3.13.1")
+    api("com.fasterxml.jackson.core:jackson-databind:2.9.8")
+    api("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
 }
 
 tasks.withType<KotlinCompile> {
