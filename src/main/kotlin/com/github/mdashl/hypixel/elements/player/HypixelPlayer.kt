@@ -13,6 +13,7 @@ import com.github.mdashl.hypixel.enums.RankedDivision
 import com.github.mdashl.hypixel.enums.RankedHat
 import com.github.mdashl.hypixel.extensions.children
 import com.github.mdashl.hypixel.extensions.uncolorize
+import com.github.mdashl.hypixel.utils.LevelingUtils
 
 @JsonDeserialize(using = HypixelPlayerDeserializer::class)
 class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children) {
@@ -55,6 +56,8 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
     val skinURL: String = "https://visage.surgeplay.com/full/$uuid.png"
 
     val faceURL: String = "https://visage.surgeplay.com/face/$uuid.png"
+
+    val level: Double by lazy { LevelingUtils.getExactLevel(networkExp.toDouble()) }
 
     val guild: Guild? by lazy { HypixelAPI.getGuildByPlayer(uuid) }
 

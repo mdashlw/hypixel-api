@@ -2,6 +2,7 @@ package com.github.mdashl.hypixel.elements
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.github.mdashl.hypixel.utils.GuildLevelingUtils
 
 data class Guild(
     val name: String,
@@ -15,6 +16,9 @@ data class Guild(
     val legacyRanking: Int = 0,
     val description: String? = null
 ) {
+
+    @JsonIgnore
+    val level: Int = GuildLevelingUtils.getLevel(exp)
 
     @JsonIgnore
     val planckeURL: String = "https://plancke.io/hypixel/guild/name/${name.replace(" ", "%20")}"
