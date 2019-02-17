@@ -1,4 +1,4 @@
- [![](https://img.shields.io/bintray/v/mdashlw/maven/hypixel-api.svg?style=flat-square)](https://bintray.com/mdashlw/maven/hypixel-api/_latestVersion)
+ [![](https://img.shields.io/bintray/v/mdashlw/maven/hypixel-api.svg?label=Hypixel%20API&style=flat-square)](https://bintray.com/mdashlw/maven/hypixel-api/_latestVersion)
  [![](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)](https://choosealicense.com/licenses/mit/)
 
 # Hypixel API
