@@ -11,7 +11,7 @@ data class Guild(
     val joinable: Boolean = false,
     val publiclyListed: Boolean = false,
     val tag: String? = null,
-    val achievements: Achievements,
+    val achievements: Achievements? = null,
     val exp: Long,
     val legacyRanking: Int = 0,
     val description: String? = null
