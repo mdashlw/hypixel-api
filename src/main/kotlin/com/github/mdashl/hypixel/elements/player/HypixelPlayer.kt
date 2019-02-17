@@ -61,7 +61,7 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
 
     val guild: Guild? by lazy { HypixelAPI.getGuildByPlayer(uuid) }
 
-    val isStaff: Boolean by lazy { get("rank")?.textValue() != "NONE" }
+    val isStaff: Boolean by lazy { has("rank") && get("rank")?.textValue() != "NONE" }
 
     val isOnline: Boolean by lazy { lastLogin != 0L && lastLogout != 0L && lastLogin > lastLogout }
 
