@@ -42,6 +42,27 @@ publishing {
             from(components["java"])
             artifact(tasks["sourcesJar"])
             artifact(tasks["javadocJar"])
+
+            pom {
+                name.set("hypixel-api")
+                description.set("Kotlin Hypixel API wrapper")
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://choosealicense.com/licenses/mit/")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("mdashlw")
+                        name.set("Mdashlw")
+                        email.set("mdashlw@gmail.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:https://github.com/mdashl/hypixel-api.git")
+                }
+            }
         }
     }
 }
