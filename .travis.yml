@@ -1,0 +1,19 @@
+language: java
+jdk: oraclejdk8
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - "$HOME/.gradle/caches/"
+    - "$HOME/.gradle/wrapper/"
+before_install:
+  - chmod +x gradlew
+script: "./gradlew assemble"
+deploy:
+  provider: bintray
+  file: descriptor.json
+  user: mdashlw
+  key:
+    secure: Rw0MdcSRqXfLYWrHTTktnELnNTTBXJoIeyVNivsucfyn3UuFFubi4XTFxSsxId0nz89ZH966+XIh6ZFANnd2uA4Xm7BjU5wnQ9ufLoocpOriKfmtCZo7mzEP0CVE2Jf+2E3Rq12ELwcgTfxsezLHw+lxwzpn1pTlKhO/wcq7j8qTLHGaRD5+3bnuK+ST+ZzXnWAxr3Ylc0N6QKxU/PxgQOvCLPva6Lhy4LvcB10r+jkHAVII08rfLc7R1s0f46Y2GYb/feiLX3qyCpx7MO+1F4NyjIzObG1e9MajsVHEqJYoDcMSrqDZzNENcc+2CkLwJ8HE62ViRlYnTxcj/0qheHx3qyU5MAYEYBH0spT47bKVqhnnTHgTh9QxjMRbTytcGQ5z8fIJh0pEzmNJr+PYfxkKvurQYVU8p7vk0LrKktnJrqx+rrHwPoaU/Hnzi6sV+M0SlOxIXid/FSRHGcHByh+/CZSOq5BF8lCLQGUf2wIiA2qSVWR6H+ZLTJTHH0lecIr/mahPq0A4CrO0NPknYoTIlA5PIsR+zODvtn6WTJLFnaX+jRkLOST+q7+4G358t4CESlEcwj9UmPGOz8DTrMUEIUijQwKj3Fqw0yfbqclN6a1R0z9Vtnyu/4zHzsLlIkmLbiV8D/4hg5SAazUAR7PaF0VLsVWSN+sQjvt+Rpc=
+  skip_cleanup: true
