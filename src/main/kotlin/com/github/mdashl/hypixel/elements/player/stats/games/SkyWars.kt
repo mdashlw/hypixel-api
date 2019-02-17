@@ -49,6 +49,15 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
 
     fun getPosition(season: RankedSeason): Int = get("SkyWars_skywars_rating_${season.date}_position")?.intValue() ?: 0
 
+    fun getActiveItem(item: String): String? =
+        get("active_$item")?.textValue()
+            ?.replace(item, "")
+            ?.replace("_", " ")
+            ?.replace("-", " ")
+            ?.split(" ")
+            ?.joinToString(" ") { it.capitalize() }
+            ?.trim()
+
     fun getKitTimePlayed(kit: RankedKit): Long = get("time_played_${kit.apiName}")?.longValue() ?: 0
 
     fun getKills(mode: SkyWarsMode): Long = get("kills_${mode.apiName}")?.longValue() ?: 0
