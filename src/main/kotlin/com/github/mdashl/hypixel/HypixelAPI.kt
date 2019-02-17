@@ -3,11 +3,13 @@ package com.github.mdashl.hypixel
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.github.mdashl.hypixel.elements.Guild
 import com.github.mdashl.hypixel.elements.Session
 import com.github.mdashl.hypixel.elements.player.HypixelPlayer
 import com.github.mdashl.hypixel.exceptions.HypixelAPIException
 import com.github.mdashl.hypixel.exceptions.HypixelAPIThrottleException
 import com.github.mdashl.hypixel.extensions.call
+import com.github.mdashl.hypixel.reply.GuildReply
 import com.github.mdashl.hypixel.reply.PlayerReply
 import com.github.mdashl.hypixel.reply.Reply
 import com.github.mdashl.hypixel.reply.SessionReply
@@ -36,6 +38,10 @@ object HypixelAPI {
     fun getPlayerByName(name: String): HypixelPlayer? = get(PlayerReply::class, "player", "name" to name)
 
     fun getSessionByUUID(uuid: String): Session? = get(SessionReply::class, "session", "uuid" to uuid)
+
+    fun getGuildByName(name: String): Guild? = get(GuildReply::class, "guild", "name" to name)
+
+    fun getGuildByPlayer(uuid: String): Guild? = get(GuildReply::class, "guild", "player" to uuid)
 
     fun <R : Reply<T>, T> get(clazz: KClass<R>, endpoint: String, parameter: Pair<String, Any>? = null): T? {
         var url = "$BASE_URL$endpoint?key=$apiKey"

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.github.mdashl.hypixel.HypixelAPI
 import com.github.mdashl.hypixel.adapters.HypixelPlayerDeserializer
+import com.github.mdashl.hypixel.elements.Guild
 import com.github.mdashl.hypixel.elements.player.stats.Stats
 import com.github.mdashl.hypixel.enums.Rank
 import com.github.mdashl.hypixel.enums.RankedDivision
@@ -53,6 +55,8 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
     val skinURL: String = "https://visage.surgeplay.com/full/$uuid.png"
 
     val faceURL: String = "https://visage.surgeplay.com/face/$uuid.png"
+
+    val guild: Guild? by lazy { HypixelAPI.getGuildByPlayer(uuid) }
 
     val isStaff: Boolean by lazy { get("rank")?.textValue() != "NONE" }
 
