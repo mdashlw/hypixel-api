@@ -49,9 +49,9 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
 
     fun getPosition(season: RankedSeason): Int = get("SkyWars_skywars_rating_${season.date}_position")?.intValue() ?: 0
 
-    fun getActiveItem(item: String): String? =
-        get("active_$item")?.textValue()
-            ?.replace(item, "")
+    fun getActiveCosmetic(cosmetic: CosmeticType): String? =
+        get("active_${cosmetic.apiName}")?.textValue()
+            ?.replace(cosmetic.apiName, "")
             ?.replace("_", " ")
             ?.replace("-", " ")
             ?.split(" ")
