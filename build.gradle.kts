@@ -74,6 +74,7 @@ bintray {
     setPublications("BintrayRelease")
 
     publish = true
+    override = true
 
     with(pkg) {
         repo = "maven"
