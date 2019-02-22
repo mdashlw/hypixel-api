@@ -25,12 +25,12 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
     val prefix: String? by lazy { get("prefix")?.textValue()?.uncolorize() }
 
     val rank: Rank by lazy {
+        val rank = get("rank")?.textValue()?.takeIf { it != "NORMAL" }
         val monthlyPackageRank = get("monthlyPackageRank")?.textValue()?.takeIf { it != "NONE" }
         val newPackageRank = get("newPackageRank")?.textValue()?.takeIf { it != "NONE" }
         val packageRank = get("packageRank")?.textValue()?.takeIf { it != "NONE" }
-        val rank = get("rank")?.textValue()?.takeIf { it != "NONE" }
 
-        Rank.valueOf(monthlyPackageRank ?: newPackageRank ?: packageRank ?: rank ?: "DEFAULT")
+        Rank.valueOf(rank ?: monthlyPackageRank ?: newPackageRank ?: packageRank ?: "DEFAULT")
     }
 
     val networkExp: Long by lazy { get("networkExp")?.longValue() ?: 0 }

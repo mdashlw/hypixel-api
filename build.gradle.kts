@@ -2,12 +2,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.3.21"
+    id("com.github.johnrengelman.shadow") version "4.0.4"
     id("com.jfrog.bintray") version "1.8.4"
     `maven-publish`
 }
 
 group = "com.github.mdashl"
-version = "1.1.6"
+version = "1.1.8"
 
 repositories {
     jcenter()
@@ -15,9 +16,9 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    api("com.squareup.okhttp3:okhttp:3.13.1")
-    api("com.fasterxml.jackson.core:jackson-databind:2.9.8")
-    api("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
+    implementation("com.squareup.okhttp3:okhttp:3.13.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.8")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
 }
 
 tasks.withType<KotlinCompile> {
@@ -40,6 +41,7 @@ publishing {
             artifactId = "hypixel-api"
 
             from(components["java"])
+            artifact(tasks["shadowJar"])
             artifact(tasks["sourcesJar"])
             artifact(tasks["javadocJar"])
 
