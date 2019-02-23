@@ -48,7 +48,9 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
     val knownAliases: List<String> by lazy { get("knownAliases").map(JsonNode::textValue) }
 
     val highestRankedDivision: RankedDivision? by lazy {
-        RankedHat.values().find { it.apiName in vanityMeta.packages }?.toRankedDivision()
+        vanityMeta?.let { vanityMeta ->
+            RankedHat.values().find { it.apiName in vanityMeta.packages }?.toRankedDivision()
+        }
     }
 
     val planckeURL: String = "https://plancke.io/hypixel/player/stats/$uuid"
@@ -69,7 +71,7 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
         "[" + (prefix?.let { "$it " } ?: rank.localizedName) + displayname + "]($planckeURL)"
     }
 
-    val vanityMeta: VanityMeta by lazy { VanityMeta((get("vanityMeta") as ObjectNode).children) }
+    val vanityMeta: VanityMeta? by lazy { (get("vanityMeta") as? ObjectNode)?.let { VanityMeta(it.children) } }
 
     val stats: Stats by lazy { Stats((get("stats") as ObjectNode).children) }
 
