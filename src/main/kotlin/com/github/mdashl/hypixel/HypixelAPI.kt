@@ -21,17 +21,14 @@ object HypixelAPI {
 
     private const val BASE_URL = "https://api.hypixel.net/"
 
-    private val OBJECT_MAPPER: ObjectMapper = jacksonObjectMapper()
-    private val OK_HTTP_CLIENT: OkHttpClient = OkHttpClient()
+    @JvmField
+    val OBJECT_MAPPER: ObjectMapper =
+        jacksonObjectMapper()
+            .apply { setConfig(deserializationConfig.withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)) }
+    @JvmField
+    val OK_HTTP_CLIENT: OkHttpClient = OkHttpClient()
 
     lateinit var apiKey: UUID
-
-    init {
-        OBJECT_MAPPER.setConfig(
-            OBJECT_MAPPER.deserializationConfig
-                .withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-        )
-    }
 
     fun getPlayerByUUID(uuid: String): HypixelPlayer? = get(PlayerReply::class, "player", "uuid" to uuid)
 

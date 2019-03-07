@@ -1,6 +1,6 @@
-package com.github.mdashl.hypixel.utils
+package com.github.mdashl.hypixel.util
 
-object LevelingUtils {
+object LevelingUtil {
 
     private const val BASE = 10000.0
     private const val GROWTH = 2500.0

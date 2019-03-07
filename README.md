@@ -1,8 +1,6 @@
  [![Bintray](https://img.shields.io/bintray/v/mdashlw/maven/hypixel-api.svg?label=Hypixel%20API&style=flat-square)](https://bintray.com/mdashlw/maven/hypixel-api/_latestVersion)
- [![GitHub](https://img.shields.io/github/license/mdashl/hypixel-api.svg?style=flat-square)](https://choosealicense.com/licenses/mit/)
  [![Travis (.com)](https://img.shields.io/travis/com/mdashl/hypixel-api.svg?style=flat-square)](http://travis-ci.com/mdashl/hypixel-api)
- ![GitHub last commit](https://img.shields.io/github/last-commit/mdashl/hypixel-api.svg?style=flat-square)
- ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mdashl/hypixel-api.svg?style=flat-square)
+ [![GitHub](https://img.shields.io/github/license/mdashl/hypixel-api.svg?style=flat-square)](https://choosealicense.com/licenses/mit/)
 
 # Hypixel API
 
@@ -14,8 +12,6 @@ Replace `VERSION` with the latest version above.
 
 ### Gradle
 
-##### Groovy DSL
-
 ```gradle
 repositories {
     jcenter()
@@ -23,18 +19,6 @@ repositories {
 
 dependencies {
     implementation 'com.github.mdashl:hypixel-api:VERSION'
-}
-```
-
-##### Kotlin DSL
-
-```kotlin
-repositories {
-    jcenter()
-}
-
-dependencies {
-    implementation("com.github.mdashl:hypixel-api:VERSION")
 }
 ```
 
@@ -60,7 +44,35 @@ dependencies {
 
 ## Usage
 
-...
+### Getting Started
+
+To start working with Hypixel API, you need to private an API key.
+
+You can get your api key via `/api new` on Hypixel Network.
+
+```kotlin
+HypixelAPI.apiKey = UUID.fromString("API_KEY_HERE")
+```
+
+### Player
+
+```kotlin
+HypixelAPI.getPlayerByUUID("uuid_here") // Can be both dashed and undashed
+HypixelAPI.getPlayerByName("name_here")
+```
+
+### Session
+
+```kotlin
+HypixelAPI.getSessionByUUID("uuid_here") // Can be both dashed and undashed
+```
+
+### Guild
+
+```kotlin
+HypixelAPI.getGuildByName("guild_name_here")
+HypixelAPI.getGuildByPlayer("player_uuid_here") // Can be both dashed and undashed
+```
 
 ## License
 

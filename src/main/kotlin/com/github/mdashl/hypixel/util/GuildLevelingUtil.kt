@@ -1,7 +1,10 @@
-package com.github.mdashl.hypixel.utils
+package com.github.mdashl.hypixel.util
 
 // Taken from Plancke/hypixel-php
-object GuildLevelingUtils {
+/**
+ * @author Plancke
+ */
+object GuildLevelingUtil {
 
     private val EXP_NEEDED = listOf(
         100000,
