@@ -11,6 +11,7 @@ import com.github.mdashl.hypixel.elements.player.stats.Stats
 import com.github.mdashl.hypixel.enums.Rank
 import com.github.mdashl.hypixel.enums.RankedDivision
 import com.github.mdashl.hypixel.enums.RankedHat
+import com.github.mdashl.hypixel.enums.RankedSeason
 import com.github.mdashl.hypixel.extensions.children
 import com.github.mdashl.hypixel.extensions.uncolorize
 import com.github.mdashl.hypixel.util.LevelingUtil
@@ -51,6 +52,29 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
         vanityMeta?.let { vanityMeta ->
             RankedHat.values().find { it.apiName in vanityMeta.packages }?.toRankedDivision()
         }
+    }
+
+    val rankedSeasons: Map<RankedSeason, Pair<Int, Int>> by lazy {
+        RankedSeason.values()
+            .copyOfRange(0, 23)
+            .filter { it.leaderboard?.get(displayname) != null }
+            .map { it to it.leaderboard!!.getValue(displayname) }
+            .plus(
+                RankedSeason.values()
+                    .copyOfRange(22, RankedSeason.CURRENT_SEASON.number + 1)
+                    .map { season ->
+                        val rating = stats.SkyWars.getRating(season)
+                        val position = stats.SkyWars.getPosition(season)
+
+                        if (rating == 0 && position == 0) {
+                            return@map null
+                        }
+
+                        season to (rating to position + 1)
+                    }
+                    .filterNotNull()
+            )
+            .toMap()
     }
 
     val planckeURL: String = "https://plancke.io/hypixel/player/stats/$uuid"

@@ -21,22 +21,6 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
 
     val mostUsedRankedKit: RankedKit by lazy { rankedKitsUsage.keys.firstOrNull() ?: RankedKit.DEFAULT }
 
-    val rankedSeasons: Map<RankedSeason, Pair<Int, Int>> by lazy {
-        RankedSeason.values().slice(22..RankedSeason.CURRENT_SEASON.ordinal + 1)
-            .map { season ->
-                val rating = getRating(season)
-                val position = getPosition(season)
-
-                if (rating == 0 && position == 0) {
-                    null to (0 to 0)
-                }
-
-                season to (rating to position + 1)
-            }
-            .toMap()
-            .filterValues { (rating, position) -> rating != 0 && position != 0 }
-    }
-
     val rankedRewards: Map<RankedDivision, List<RankedReward>> by lazy {
         RankedReward.values()
             .filter { it.apiName in packages }
