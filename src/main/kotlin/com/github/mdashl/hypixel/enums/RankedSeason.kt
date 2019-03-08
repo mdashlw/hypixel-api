@@ -61,7 +61,7 @@ enum class RankedSeason(val date: String, val number: Int, val leaderboard: Map<
             "Nickthemurph" to (0 to 3),
             "OnyxDragon_Line" to (0 to 4),
             "3dbluechip" to (0 to 5),
-            "Enalala" to (0 to 6),
+            "enalala" to (0 to 6),
             "Elyre" to (0 to 7),
             "Robbieciaron" to (0 to 8),
             "xkuuulaOuO" to (0 to 9),
