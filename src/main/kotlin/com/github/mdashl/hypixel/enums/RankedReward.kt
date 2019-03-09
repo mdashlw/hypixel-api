@@ -6,7 +6,6 @@ enum class RankedReward(
     val localizedName: String
 ) {
 
-    // _qg loh
     FINAL_SMASH(RankedDivision.MASTERS, "killeffect_final_smash", "Final Smash"),
     HEAD_ROCKET(RankedDivision.MASTERS, "killeffect_head_rocket", "Head Rocket"),
     DRAGON_RIDER(RankedDivision.MASTERS, "victorydance_dragon_rider", "Dragon Rider"),

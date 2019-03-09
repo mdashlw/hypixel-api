@@ -54,6 +54,14 @@ You can get your api key via `/api new` on Hypixel Network.
 HypixelAPI.apiKey = UUID.fromString("API_KEY_HERE")
 ```
 
+You can customize the mode of outputs (uncolorized, colorized).
+
+Default is `uncolorized`.
+
+```kotlin
+HypixelAPI.mode = HypixelAPI.Mode.COLORIZED
+```
+
 ### Player
 
 ```kotlin

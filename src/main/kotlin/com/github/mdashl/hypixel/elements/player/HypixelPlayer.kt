@@ -23,7 +23,14 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
 
     val displayname: String by lazy { get("displayname").textValue() }
 
-    val prefix: String? by lazy { get("prefix")?.textValue()?.uncolorize() }
+    val prefix: String? by lazy {
+        get("prefix")?.textValue()?.let {
+            when (HypixelAPI.mode) {
+                HypixelAPI.Mode.UNCOLORIZED -> it.uncolorize()
+                HypixelAPI.Mode.COLORIZED -> it
+            }
+        }
+    }
 
     val rank: Rank by lazy {
         val rank = get("rank")?.textValue()?.takeIf { it != "NORMAL" }
@@ -92,7 +99,11 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
     val isOnline: Boolean by lazy { lastLogin != 0L && lastLogout != 0L && lastLogin > lastLogout }
 
     val formattedDisplayname: String by lazy {
-        "[" + (prefix?.let { "$it " } ?: rank.localizedName) + displayname + "]($planckeURL)"
+        when (HypixelAPI.mode) {
+            HypixelAPI.Mode.UNCOLORIZED ->
+                "[" + (prefix?.let { "$it " } ?: rank.uncolorizedName) + displayname + "]($planckeURL)"
+            HypixelAPI.Mode.COLORIZED -> "${prefix?.let { "$it " } ?: rank.colorizedName}$displayname"
+        }
     }
 
     val vanityMeta: VanityMeta? by lazy { (get("vanityMeta") as? ObjectNode)?.let { VanityMeta(it.children) } }

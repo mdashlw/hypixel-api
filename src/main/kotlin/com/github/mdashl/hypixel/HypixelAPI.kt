@@ -28,6 +28,7 @@ object HypixelAPI {
     @JvmField
     val OK_HTTP_CLIENT: OkHttpClient = OkHttpClient()
 
+    var mode: Mode = Mode.UNCOLORIZED
     lateinit var apiKey: UUID
 
     fun getPlayerByUUID(uuid: String): HypixelPlayer? = get(PlayerReply::class, "player", "uuid" to uuid)
@@ -59,6 +60,13 @@ object HypixelAPI {
 
             return element
         }
+    }
+
+    enum class Mode {
+
+        UNCOLORIZED,
+        COLORIZED;
+
     }
 
 }
