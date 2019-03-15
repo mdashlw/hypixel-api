@@ -9,4 +9,7 @@ cache:
     - "$HOME/.gradle/wrapper/"
 before_install:
   - chmod +x gradlew
-script: "./gradlew bintrayUpload"
+script: "./gradlew build"
+deploy:
+  - provider: script
+    script: "./gradlew bintrayUpload"

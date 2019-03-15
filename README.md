@@ -1,6 +1,5 @@
- [![Bintray](https://img.shields.io/bintray/v/mdashlw/maven/hypixel-api.svg?label=Hypixel%20API&style=flat-square)](https://bintray.com/mdashlw/maven/hypixel-api/_latestVersion)
- [![Travis (.com)](https://img.shields.io/travis/com/mdashl/hypixel-api.svg?style=flat-square)](http://travis-ci.com/mdashl/hypixel-api)
- [![GitHub](https://img.shields.io/github/license/mdashl/hypixel-api.svg?style=flat-square)](https://choosealicense.com/licenses/mit/)
+[ ![Download](https://api.bintray.com/packages/mdashlw/maven/hypixel-api/images/download.svg) ](https://bintray.com/mdashlw/maven/hypixel-api/_latestVersion)
+[![Build Status](https://travis-ci.com/mdashl/hypixel-api.svg?branch=master)](https://travis-ci.com/mdashl/hypixel-api)
 
 # Hypixel API
 

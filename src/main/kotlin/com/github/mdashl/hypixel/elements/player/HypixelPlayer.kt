@@ -94,14 +94,14 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
 
     val guild: Guild? by lazy { HypixelAPI.getGuildByPlayer(uuid) }
 
-    val isStaff: Boolean by lazy { has("rank") && get("rank")?.textValue() != "NONE" }
+    val isStaff: Boolean by lazy { has("rank") && get("rank")?.textValue() != "NORMAL" }
 
     val isOnline: Boolean by lazy { lastLogin != 0L && lastLogout != 0L && lastLogin > lastLogout }
 
     val formattedDisplayname: String by lazy {
         when (HypixelAPI.mode) {
             HypixelAPI.Mode.UNCOLORIZED ->
-                "[" + (prefix?.let { "$it " } ?: rank.uncolorizedName) + displayname + "]($planckeURL)"
+                "[${prefix?.let { "$it " } ?: rank.uncolorizedName}$displayname]($planckeURL)"
             HypixelAPI.Mode.COLORIZED -> "${prefix?.let { "$it " } ?: rank.colorizedName}$displayname"
         }
     }
