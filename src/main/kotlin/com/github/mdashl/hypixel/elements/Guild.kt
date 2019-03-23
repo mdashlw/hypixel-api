@@ -16,7 +16,6 @@ data class Guild(
     val legacyRanking: Int = 0,
     val description: String? = null
 ) {
-
     @JsonIgnore
     val level: Int = GuildLevelingUtil.getLevel(exp)
 
@@ -36,5 +35,4 @@ data class Guild(
         @JsonProperty("EXPERIENCE_KINGS") val experienceKings: Int = 0,
         @JsonProperty("ONLINE_PLAYERS") val onlinePlayers: Int = 0
     )
-
 }

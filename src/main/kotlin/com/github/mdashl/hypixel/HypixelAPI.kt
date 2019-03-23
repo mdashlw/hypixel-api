@@ -18,7 +18,6 @@ import java.util.*
 import kotlin.reflect.KClass
 
 object HypixelAPI {
-
     private const val BASE_URL = "https://api.hypixel.net/"
 
     @JvmField
@@ -63,10 +62,7 @@ object HypixelAPI {
     }
 
     enum class Mode {
-
         UNCOLORIZED,
         COLORIZED;
-
     }
-
 }

@@ -5,7 +5,6 @@ package com.github.mdashl.hypixel.util
  * @author Plancke
  */
 object GuildLevelingUtil {
-
     private val EXP_NEEDED = listOf(
         100000,
         150000,
@@ -44,5 +43,4 @@ object GuildLevelingUtil {
 
         throw IllegalStateException()
     }
-
 }

@@ -1,7 +1,6 @@
 package com.github.mdashl.hypixel.enums
 
 enum class GameType(val localizedName: String) {
-
     QUAKECRAFT("Quakecraft"),
     WALLS("Walls"),
     PAINTBALL("Paintball"),
@@ -27,5 +26,4 @@ enum class GameType(val localizedName: String) {
     MURDER_MYSTERY("Murder Mystery"),
     BUILD_BATTLE("Build Battle"),
     DUELS("Duels");
-
 }

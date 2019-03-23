@@ -2,8 +2,10 @@ package com.github.mdashl.hypixel.enums
 
 import java.time.LocalDate
 
+/*
+ TODO New leaderboards system based on mdashl/hypixel-ranked-leaderboards
+ */
 enum class RankedSeason(val date: String, val number: Int, val leaderboard: Map<String, Pair<Int, Int>>? = null) {
-
     SEASON_1(
         "4_16",
         1,
@@ -548,15 +550,9 @@ enum class RankedSeason(val date: String, val number: Int, val leaderboard: Map<
     }
 
     companion object {
-
-        val CURRENT_SEASON: RankedSeason by lazy {
-            val date = LocalDate.now()
-
-            get("${date.monthValue}_${date.year.toString().drop(2)}")
-        }
+        @JvmField
+        val CURRENT_SEASON: RankedSeason = LocalDate.now().let { get("${it.monthValue}_${it.year.toString().drop(2)}") }
 
         operator fun get(date: String): RankedSeason = values().find { it.date == date }!!
-
     }
-
 }

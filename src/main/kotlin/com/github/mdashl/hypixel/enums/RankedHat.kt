@@ -1,7 +1,6 @@
 package com.github.mdashl.hypixel.enums
 
 enum class RankedHat(val apiName: String) {
-
     ENDER("hat_ender_steve"),
     DIAMOND("hat_diamond_steve"),
     GOLD("hat_gold_steve"),
@@ -18,5 +17,4 @@ enum class RankedHat(val apiName: String) {
             STONE -> RankedDivision.STONE
             WOOD -> RankedDivision.WOOD
         }
-
 }

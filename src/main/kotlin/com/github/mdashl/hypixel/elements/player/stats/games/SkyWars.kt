@@ -6,26 +6,26 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.github.mdashl.hypixel.enums.*
 
 class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children) {
+    val packages: List<String>
+        get() = get("packages").map(JsonNode::textValue)
 
-    val packages: List<String> by lazy { get("packages").map(JsonNode::textValue) }
-
-    val rankedKitsUsage: Map<RankedKit, Long> by lazy {
-        RankedKit.values()
+    val rankedKitsTimePlayed: Map<RankedKit, Long>
+        get() = RankedKit.values()
             .map { it to getKitTimePlayed(it) }
             .sortedByDescending { it.second }
             .toMap()
             .filterValues { it != 0L }
-    }
 
-    val activeRankedKit: RankedKit by lazy { RankedKit[get("activeKit_RANKED")?.textValue()] ?: RankedKit.DEFAULT }
+    val activeRankedKit: RankedKit
+        get() = RankedKit[get("activeKit_RANKED")?.textValue()] ?: RankedKit.DEFAULT
 
-    val mostUsedRankedKit: RankedKit by lazy { rankedKitsUsage.keys.firstOrNull() ?: RankedKit.DEFAULT }
+    val mostUsedRankedKit: RankedKit
+        get() = rankedKitsTimePlayed.keys.firstOrNull() ?: RankedKit.DEFAULT
 
-    val rankedRewards: Map<RankedDivision, List<RankedReward>> by lazy {
-        RankedReward.values()
+    val rankedRewards: Map<RankedDivision, List<RankedReward>>
+        get() = RankedReward.values()
             .filter { it.apiName in packages }
             .groupBy { it.division }
-    }
 
     fun hasRewards(division: RankedDivision): Boolean = division.rewards.any { it.apiName in packages }
 
@@ -53,5 +53,4 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
     fun getLosses(mode: SkyWarsMode): Long = get("losses_${mode.apiName}")?.longValue() ?: 0
 
     fun getTimePlayed(mode: SkyWarsMode): Long = get("time_played_${mode.apiName}")?.longValue() ?: 0
-
 }

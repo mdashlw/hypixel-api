@@ -1,7 +1,6 @@
 package com.github.mdashl.hypixel.enums
 
 enum class RankedKit(val apiName: String, val localizedName: String) {
-
     DEFAULT("kit_ranked_ranked_default", "Default"),
     SCOUT("kit_ranked_ranked_scout", "Scout"),
     BLACKSMITH("kit_blacksmith_ranked_blacksmith", "Blacksmith"),
@@ -17,9 +16,6 @@ enum class RankedKit(val apiName: String, val localizedName: String) {
     override fun toString(): String = localizedName
 
     companion object {
-
         operator fun get(apiName: String?): RankedKit? = values().find { it.apiName == apiName }
-
     }
-
 }

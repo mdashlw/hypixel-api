@@ -1,7 +1,6 @@
 package com.github.mdashl.hypixel.util
 
 object LevelingUtil {
-
     private const val BASE = 10000.0
     private const val GROWTH = 2500.0
 
@@ -31,5 +30,4 @@ object LevelingUtil {
 
         return (exp - x0) / (getTotalExpToLevel(lv + 1) - x0)
     }
-
 }

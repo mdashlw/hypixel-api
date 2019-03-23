@@ -1,7 +1,6 @@
 package com.github.mdashl.hypixel.enums
 
 enum class Rank(val uncolorizedName: String, val colorizedName: String) {
-
     ADMIN("[ADMIN] ", "§c[ADMIN] "),
     MODERATOR("[MOD] ", "§2[MOD] "),
     HELPER("[HELPER] ", "§9[HELPER] "),
@@ -12,5 +11,4 @@ enum class Rank(val uncolorizedName: String, val colorizedName: String) {
     VIP_PLUS("[VIP+] ", "§a[VIP§6+§a] "),
     VIP("[VIP] ", "§a[VIP] "),
     DEFAULT("", "§7");
-
 }

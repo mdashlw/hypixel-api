@@ -1,7 +1,6 @@
 package com.github.mdashl.hypixel.enums
 
 enum class CosmeticType(val apiName: String, val localizedName: String) {
-
     PROJECTILE_TRAIL("projectiletrail", "Projectile Trail"),
     CAGE("cage", "Cage"),
     VICTORY_DANCE("victorydance", "Victory Dance"),
@@ -10,5 +9,4 @@ enum class CosmeticType(val apiName: String, val localizedName: String) {
     BALLOON("balloon", "Balloon"),
     KILL_MESSAGES("killmessages", "Kill Messages"),
     SPRAYS("sprays", "Sprays");
-
 }

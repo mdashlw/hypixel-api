@@ -5,7 +5,6 @@ enum class RankedReward(
     val apiName: String,
     val localizedName: String
 ) {
-
     FINAL_SMASH(RankedDivision.MASTERS, "killeffect_final_smash", "Final Smash"),
     HEAD_ROCKET(RankedDivision.MASTERS, "killeffect_head_rocket", "Head Rocket"),
     DRAGON_RIDER(RankedDivision.MASTERS, "victorydance_dragon_rider", "Dragon Rider"),
@@ -24,5 +23,4 @@ enum class RankedReward(
     HEARTS(RankedDivision.GOLD, "projectiletrail_hearts", "Hearts");
 
     override fun toString(): String = localizedName
-
 }

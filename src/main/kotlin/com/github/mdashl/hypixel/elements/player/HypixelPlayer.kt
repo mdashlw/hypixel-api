@@ -18,51 +18,58 @@ import com.github.mdashl.hypixel.util.LevelingUtil
 
 @JsonDeserialize(using = HypixelPlayerDeserializer::class)
 class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children) {
+    val uuid: String
+        get() = get("uuid").textValue()
 
-    val uuid: String by lazy { get("uuid").textValue() }
+    val displayname: String
+        get() = get("displayname").textValue()
 
-    val displayname: String by lazy { get("displayname").textValue() }
-
-    val prefix: String? by lazy {
-        get("prefix")?.textValue()?.let {
+    val prefix: String?
+        get() = get("prefix")?.textValue()?.let {
             when (HypixelAPI.mode) {
                 HypixelAPI.Mode.UNCOLORIZED -> it.uncolorize()
                 HypixelAPI.Mode.COLORIZED -> it
             }
         }
-    }
 
-    val rank: Rank by lazy {
-        val rank = get("rank")?.textValue()?.takeIf { it != "NORMAL" }
-        val monthlyPackageRank = get("monthlyPackageRank")?.textValue()?.takeIf { it != "NONE" }
-        val newPackageRank = get("newPackageRank")?.textValue()?.takeIf { it != "NONE" }
-        val packageRank = get("packageRank")?.textValue()?.takeIf { it != "NONE" }
+    val rank: Rank
+        get() {
+            val rank = get("rank")?.textValue()?.takeIf { it != "NORMAL" }
+            val monthlyPackageRank = get("monthlyPackageRank")?.textValue()?.takeIf { it != "NONE" }
+            val newPackageRank = get("newPackageRank")?.textValue()?.takeIf { it != "NONE" }
+            val packageRank = get("packageRank")?.textValue()?.takeIf { it != "NONE" }
 
-        Rank.valueOf(rank ?: monthlyPackageRank ?: newPackageRank ?: packageRank ?: "DEFAULT")
-    }
+            return Rank.valueOf(rank ?: monthlyPackageRank ?: newPackageRank ?: packageRank ?: "DEFAULT")
+        }
 
-    val networkExp: Long by lazy { get("networkExp")?.longValue() ?: 0 }
+    val networkExp: Long
+        get() = get("networkExp")?.longValue() ?: 0
 
-    val karma: Long by lazy { get("karma")?.longValue() ?: 0 }
+    val karma: Long
+        get() = get("karma")?.longValue() ?: 0
 
-    val achievementPoints: Long by lazy { get("achievementPoints")?.longValue() ?: 0 }
+    val achievementPoints: Long
+        get() = get("achievementPoints")?.longValue() ?: 0
 
-    val firstLogin: Long by lazy { get("firstLogin")?.longValue() ?: 0 }
+    val firstLogin: Long
+        get() = get("firstLogin")?.longValue() ?: 0
 
-    val lastLogin: Long by lazy { get("lastLogin")?.longValue() ?: 0 }
+    val lastLogin: Long
+        get() = get("lastLogin")?.longValue() ?: 0
 
-    val lastLogout: Long by lazy { get("lastLogout")?.longValue() ?: 0 }
+    val lastLogout: Long
+        get() = get("lastLogout")?.longValue() ?: 0
 
-    val knownAliases: List<String> by lazy { get("knownAliases").map(JsonNode::textValue) }
+    val knownAliases: List<String>
+        get() = get("knownAliases").map(JsonNode::textValue)
 
-    val highestRankedDivision: RankedDivision? by lazy {
-        vanityMeta?.let { vanityMeta ->
+    val highestRankedDivision: RankedDivision?
+        get() = vanityMeta?.let { vanityMeta ->
             RankedHat.values().find { it.apiName in vanityMeta.packages }?.toRankedDivision()
         }
-    }
 
-    val rankedSeasons: Map<RankedSeason, Pair<Int, Int>> by lazy {
-        RankedSeason.values()
+    val rankedSeasons: Map<RankedSeason, Pair<Int, Int>>
+        get() = RankedSeason.values()
             .copyOfRange(0, 23)
             .filter { it.leaderboard?.get(displayname) != null }
             .map { it to it.leaderboard!!.getValue(displayname) }
@@ -82,7 +89,6 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
                     .filterNotNull()
             )
             .toMap()
-    }
 
     val planckeURL: String = "https://plancke.io/hypixel/player/stats/$uuid"
 
@@ -90,30 +96,33 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
 
     val faceURL: String = "https://visage.surgeplay.com/face/$uuid.png"
 
-    val level: Double by lazy { LevelingUtil.getExactLevel(networkExp.toDouble()) }
+    val level: Double
+        get() = LevelingUtil.getExactLevel(networkExp.toDouble())
 
-    val guild: Guild? by lazy { HypixelAPI.getGuildByPlayer(uuid) }
+    val guild: Guild?
+        get() = HypixelAPI.getGuildByPlayer(uuid)
 
-    val isStaff: Boolean by lazy { has("rank") && get("rank")?.textValue() != "NORMAL" }
+    val isStaff: Boolean
+        get() = has("rank") && get("rank")?.textValue() != "NORMAL"
 
-    val isOnline: Boolean by lazy { lastLogin != 0L && lastLogout != 0L && lastLogin > lastLogout }
+    val isOnline: Boolean
+        get() = lastLogin != 0L && lastLogout != 0L && lastLogin > lastLogout
 
-    val formattedDisplayname: String by lazy {
-        when (HypixelAPI.mode) {
+    val formattedDisplayname: String
+        get() = when (HypixelAPI.mode) {
             HypixelAPI.Mode.UNCOLORIZED ->
                 "[${prefix?.let { "$it " } ?: rank.uncolorizedName}$displayname]($planckeURL)"
             HypixelAPI.Mode.COLORIZED -> "${prefix?.let { "$it " } ?: rank.colorizedName}$displayname"
         }
-    }
 
-    val vanityMeta: VanityMeta? by lazy { (get("vanityMeta") as? ObjectNode)?.let { VanityMeta(it.children) } }
+    val vanityMeta: VanityMeta?
+        get() = (get("vanityMeta") as? ObjectNode)?.let { VanityMeta(it.children) }
 
-    val stats: Stats by lazy { Stats((get("stats") as ObjectNode).children) }
+    val stats: Stats
+        get() = Stats((get("stats") as ObjectNode).children)
 
     class VanityMeta(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children) {
-
-        val packages: List<String> by lazy { get("packages").map(JsonNode::textValue) }
-
+        val packages: List<String>
+            get() = get("packages").map(JsonNode::textValue)
     }
-
 }
