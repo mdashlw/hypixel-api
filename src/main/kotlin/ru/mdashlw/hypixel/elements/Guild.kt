@@ -2,6 +2,7 @@ package ru.mdashlw.hypixel.elements
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
+import ru.mdashlw.hypixel.HypixelAPI
 import ru.mdashlw.hypixel.util.GuildLevelingUtil
 
 data class Guild(
@@ -23,7 +24,14 @@ data class Guild(
     val planckeURL: String = "https://plancke.io/hypixel/guild/name/${name.replace(" ", "%20")}"
 
     @JsonIgnore
-    val formattedDisplayname: String = "[${tag?.let { "[$it] $name" } ?: name}]($planckeURL)"
+    val formattedDisplayname: String =
+        when (HypixelAPI.outputMode) {
+            // TODO Make colorized seperated
+            HypixelAPI.OutputMode.RAW, HypixelAPI.OutputMode.COLORIZED ->
+                tag?.let { "[$it] $name" } ?: name
+            HypixelAPI.OutputMode.MARKDOWN ->
+                "[${tag?.let { "[$it] $name" } ?: name}]($planckeURL)"
+        }
 
     data class Member(
         val uuid: String,

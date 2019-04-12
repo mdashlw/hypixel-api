@@ -5,8 +5,54 @@
 
     <groupId>ru.mdashlw.hypixel</groupId>
     <artifactId>hypixel-api</artifactId>
-    <version>2.0.0</version>
-    <packaging>jar</packaging>
+    <version>3.0.0</version>
+
+    <name>ru.mdashlw.hypixel hypixel-api</name>
+    <description>Hypixel API wrapper for Kotlin</description>
+    <url>https://gitlab.com/mdashlw/hypixel-api</url>
+    <inceptionYear>2019</inceptionYear>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>http://opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>mdashlw</id>
+            <name>Davyd Malikov</name>
+            <email>mdashlw@gmail.com</email>
+            <url>https://gitlab.com/mdashlw</url>
+            <roles>
+                <role>Maintainer</role>
+            </roles>
+            <timezone>3</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://gitlab.com/mdashlw/hypixel-api</connection>
+        <developerConnection>scm:git:https://gitlab.com/mdashlw/hypixel-api</developerConnection>
+        <url>https://gitlab.com/mdashlw/hypixel-api</url>
+    </scm>
+    <issueManagement>
+        <system>GitLab</system>
+        <url>https://gitlab.com/mdashlw/hypixel-api/issues</url>
+    </issueManagement>
+    <distributionManagement>
+        <repository>
+            <id>bintray-mdashlw-maven</id>
+            <name>mdashlw-maven</name>
+            <url>https://api.bintray.com/maven/mdashlw/maven/hypixel-api/;publish=1</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <kotlin.version>1.3.30</kotlin.version>
+        <kotlin.code.style>official</kotlin.code.style>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -31,11 +77,21 @@
         </dependency>
     </dependencies>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.3.21</kotlin.version>
-        <kotlin.code.style>official</kotlin.code.style>
-    </properties>
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <name>JCenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <name>JCenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
 
@@ -87,58 +143,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <name>ru.mdashlw.hypixel hypixel-api</name>
-    <description>Hypixel API wrapper for Kotlin</description>
-    <url>https://gitlab.com/mdashlw/hypixel-api</url>
-    <inceptionYear>2019</inceptionYear>
-    <licenses>
-        <license>
-            <name>MIT</name>
-            <url>http://opensource.org/licenses/mit-license.php</url>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <id>mdashlw</id>
-            <name>Davyd Malikov</name>
-            <email>mdashlw@gmail.com</email>
-            <url>https://gitlab.com/mdashlw</url>
-            <roles>
-                <role>Maintainer</role>
-            </roles>
-            <timezone>Europe/Moscow</timezone>
-        </developer>
-    </developers>
-
-    <issueManagement>
-        <system>GitLab Issues</system>
-        <url>https://gitlab.com/mdashlw/hypixel-api/issues</url>
-    </issueManagement>
-    <scm>
-        <connection>scm:git:https://gitlab.com/mdashlw/hypixel-api</connection>
-        <developerConnection>scm:git:https://gitlab.com/mdashlw/hypixel-api</developerConnection>
-        <url>https://gitlab.com/mdashlw/hypixel-api</url>
-    </scm>
-    <repositories>
-        <repository>
-            <id>jcenter</id>
-            <name>JCenter</name>
-            <url>https://jcenter.bintray.com/</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jcenter</id>
-            <name>JCenter</name>
-            <url>https://jcenter.bintray.com/</url>
-        </pluginRepository>
-    </pluginRepositories>
-    <distributionManagement>
-        <repository>
-            <id>bintray-mdashlw-maven</id>
-            <name>mdashlw-maven</name>
-            <url>https://api.bintray.com/maven/mdashlw/maven/hypixel-api/;publish=1</url>
-        </repository>
-    </distributionManagement>
 </project>

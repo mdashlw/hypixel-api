@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import ru.mdashlw.hypixel.enums.*
+import ru.mdashlw.hypixel.ranked.RankedSeason
 
 class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children) {
     val packages: List<String>
@@ -29,9 +30,11 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
 
     fun hasRewards(division: RankedDivision): Boolean = division.rewards.any { it.apiName in packages }
 
-    fun getRating(season: RankedSeason): Int = get("SkyWars_skywars_rating_${season.date}_rating")?.intValue() ?: 0
+    fun getRating(season: RankedSeason): Int =
+        get("SkyWars_skywars_rating_${season.hypixelDate}_rating")?.intValue() ?: 0
 
-    fun getPosition(season: RankedSeason): Int = get("SkyWars_skywars_rating_${season.date}_position")?.intValue() ?: 0
+    fun getPosition(season: RankedSeason): Int =
+        get("SkyWars_skywars_rating_${season.hypixelDate}_position")?.intValue() ?: 0
 
     fun getActiveCosmetic(cosmetic: CosmeticType): String? =
         get("active_${cosmetic.apiName}")?.textValue()

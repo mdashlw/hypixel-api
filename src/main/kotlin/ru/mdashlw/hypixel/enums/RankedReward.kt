@@ -1,5 +1,6 @@
 package ru.mdashlw.hypixel.enums
 
+// Order is important
 enum class RankedReward(
     val division: RankedDivision,
     val apiName: String,

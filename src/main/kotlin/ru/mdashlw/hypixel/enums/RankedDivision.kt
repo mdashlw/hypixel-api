@@ -8,6 +8,7 @@ enum class RankedDivision(val localizedName: String) {
     STONE("Stone"),
     WOOD("Wood");
 
+    @Suppress("RemoveRedundantQualifierName") // what the fuck, Kotlin
     val rewards: List<RankedReward>
         get() = RankedReward.values().filter { it.division == this }
 

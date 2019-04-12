@@ -1,6 +1,7 @@
-package ru.mdashlw.hypixel.reply
+package ru.mdashlw.hypixel.reply.impl
 
 import ru.mdashlw.hypixel.elements.Session
+import ru.mdashlw.hypixel.reply.Reply
 
 class SessionReply(
     success: Boolean,

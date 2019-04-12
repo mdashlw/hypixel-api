@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-    implementation("ru.mdashlw.hypixel:hypixel-api:VERSION"
+    implementation("ru.mdashlw.hypixel:hypixel-api:VERSION")
 }
 ```
 
@@ -80,35 +80,41 @@ To start working with Hypixel API, you need to private an API key.
 You can get your api key via `/api new` on Hypixel Network.
 
 ```kotlin
-HypixelApi.apiKey = UUID.fromString("API_KEY_HERE")
+HypixelAPI.apiKey = UUID.fromString("API_KEY_HERE")
 ```
 
-You can customize the mode of outputs (uncolorized, colorized).
+You can customize the mode of outputs:
 
-Default is `uncolorized`.
+* Raw - just plain text, without any formatting.
+* Markdown - with markdown formatting.
+* Colorized - with minecraft color codes.
+
+The default is **Raw**.
+
+Changing the mode:
 
 ```kotlin
-HypixelApi.mode = HypixelApi.Mode.COLORIZED
+HypixelAPI.outputMode = HypixelAPI.OutputMode.COLORIZED
 ```
 
 ### Player
 
 ```kotlin
-HypixelApi.getPlayerByUuid("uuid_here") // Can be both dashed and undashed
-HypixelApi.getPlayerByName("name_here")
+HypixelAPI.getPlayerByUUUID("uuid_here") // Can be both dashed and undashed
+HypixelAPI.getPlayerByName("name_here")
 ```
 
 ### Session
 
 ```kotlin
-HypixelApi.getSessionByUuid("uuid_here") // Can be both dashed and undashed
+HypixelAPI.getSessionByUUID("uuid_here") // Can be both dashed and undashed
 ```
 
 ### Guild
 
 ```kotlin
-HypixelApi.getGuildByName("guild_name_here")
-HypixelApi.getGuildByPlayer("player_uuid_here") // Can be both dashed and undashed
+HypixelAPI.getGuildByName("guild_name_here")
+HypixelAPI.getGuildByPlayer("player_uuid_here") // Can be both dashed and undashed
 ```
 
 ## License

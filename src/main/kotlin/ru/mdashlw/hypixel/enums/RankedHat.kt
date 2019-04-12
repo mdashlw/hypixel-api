@@ -10,11 +10,11 @@ enum class RankedHat(val apiName: String) {
 
     fun toRankedDivision(): RankedDivision =
         when (this) {
-            RankedHat.ENDER -> RankedDivision.MASTERS
-            RankedHat.DIAMOND -> RankedDivision.DIAMOND
-            RankedHat.GOLD -> RankedDivision.GOLD
-            RankedHat.IRON -> RankedDivision.IRON
-            RankedHat.STONE -> RankedDivision.STONE
-            RankedHat.WOOD -> RankedDivision.WOOD
+            ENDER -> RankedDivision.MASTERS
+            DIAMOND -> RankedDivision.DIAMOND
+            GOLD -> RankedDivision.GOLD
+            IRON -> RankedDivision.IRON
+            STONE -> RankedDivision.STONE
+            WOOD -> RankedDivision.WOOD
         }
 }
