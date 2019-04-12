@@ -22,7 +22,7 @@ object HypixelAPI {
 
     @JvmField
     val OBJECT_MAPPER: ObjectMapper = jacksonObjectMapper()
-        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
     @JvmField
     val OK_HTTP_CLIENT: OkHttpClient = OkHttpClient()
 
