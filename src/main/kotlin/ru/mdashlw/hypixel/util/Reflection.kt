@@ -2,6 +2,7 @@
 
 package ru.mdashlw.hypixel.util
 
+// TODO Move to ru.mdashlw.util:common-util
 @Suppress("UNCHECKED_CAST")
 @Throws(NoSuchFieldException::class, TypeCastException::class)
 internal inline fun <T> Any.getField(name: String): T =

@@ -5,6 +5,8 @@ package ru.mdashlw.hypixel.util
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 
+// TODO Move to ru.mdashlw.util:common-util, module jackson
+
 internal inline fun JsonNode.text() = textValue()
 
 internal inline fun JsonNode.long() = longValue()
