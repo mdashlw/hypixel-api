@@ -16,6 +16,6 @@ enum class RankedKit(val apiName: String, val localizedName: String) {
     override fun toString(): String = localizedName
 
     companion object {
-        operator fun get(apiName: String?): RankedKit? = values().find { it.apiName == apiName }
+        operator fun get(apiName: String): RankedKit? = values().find { it.apiName == apiName }
     }
 }

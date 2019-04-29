@@ -28,9 +28,9 @@ object RankedHandler {
             ?: throw IllegalStateException("Cannot find current season")
 
     fun loadSeasons() {
-        val response = HypixelAPI.OK_HTTP_CLIENT.newCall(SEASONS_URL)
+        val response = HypixelAPI.okHttpClient.newCall(SEASONS_URL)
 
-        seasons = HypixelAPI.OBJECT_MAPPER.readValue(response)
+        seasons = HypixelAPI.jackson.readValue(response)
     }
 
     fun findSeasonByDate(date: LocalDate): RankedSeason? =

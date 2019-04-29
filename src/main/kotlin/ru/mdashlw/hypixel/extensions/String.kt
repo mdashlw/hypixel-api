@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package ru.mdashlw.hypixel.util
+package ru.mdashlw.hypixel.extensions
 
 @JvmField
 val COLOR_PATTERN = "§.".toRegex()

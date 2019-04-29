@@ -20,11 +20,9 @@ import kotlin.reflect.KClass
 object HypixelAPI {
     private const val BASE_URL = "https://api.hypixel.net/"
 
-    @JvmField
-    val OBJECT_MAPPER: ObjectMapper = jacksonObjectMapper()
+    internal val jackson: ObjectMapper = jacksonObjectMapper()
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-    @JvmField
-    val OK_HTTP_CLIENT: OkHttpClient = OkHttpClient()
+    internal val okHttpClient: OkHttpClient = OkHttpClient()
 
     var outputMode: OutputMode = OutputMode.RAW
     lateinit var apiKey: UUID
@@ -51,8 +49,8 @@ object HypixelAPI {
             url += "&$key=$value"
         }
 
-        val response = OK_HTTP_CLIENT.newCall(url)
-        val reply = OBJECT_MAPPER.readValue(response, clazz.java)
+        val response = okHttpClient.newCall(url)
+        val reply = jackson.readValue(response, clazz.java)
 
         reply.run {
             if (throttle) {

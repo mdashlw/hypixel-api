@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/maven,linux,kotlin,windows,intellij
-# Edit at https://www.gitignore.io/?templates=maven,linux,kotlin,windows,intellij
+# Created by https://www.gitignore.io/api/linux,maven,kotlin,windows,intellij
+# Edit at https://www.gitignore.io/?templates=linux,maven,kotlin,windows,intellij
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
@@ -69,6 +69,9 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+
+# JetBrains templates
+**___jb_tmp___
 
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
@@ -158,4 +161,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/maven,linux,kotlin,windows,intellij
+# End of https://www.gitignore.io/api/linux,maven,kotlin,windows,intellij
