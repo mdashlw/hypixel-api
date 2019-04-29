@@ -3,7 +3,7 @@
 
 # Hypixel API
 
-Hypixel API wrapper for Kotlin
+Kotlin Hypixel API wrapper
 
 ## Importing
 
