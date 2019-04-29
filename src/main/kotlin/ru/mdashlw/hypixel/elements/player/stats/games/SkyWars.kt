@@ -22,7 +22,7 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
             .filterValues { it != 0L }
 
     val activeRankedKit: RankedKit
-        get() = get("activeKit_RANKED", null, JsonNode::text)?.let(RankedKit::valueOf) ?: RankedKit.DEFAULT
+        get() = get("activeKit_RANKED", null, JsonNode::text)?.let(RankedKit.Companion::get) ?: RankedKit.DEFAULT
 
     val mostUsedRankedKit: RankedKit
         get() = rankedKitsTimePlayed.keys.firstOrNull() ?: RankedKit.DEFAULT
