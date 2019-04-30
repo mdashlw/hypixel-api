@@ -84,10 +84,10 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
                     .asSequence()
                     .filterNot(RankedSeason::isHiddenInAPI)
                     .map { season ->
-                        val game = stats.SkyWars
+                        val game = stats?.SkyWars ?: return@map null
 
-                        val rating = game?.getRating(season) ?: 0
-                        val position = game?.getPosition(season) ?: 0
+                        val rating = game.getRating(season)
+                        val position = game.getPosition(season)
 
                         if (rating == 0 && position == 0) {
                             return@map null
@@ -139,8 +139,8 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
     val vanityMeta: VanityMeta?
         get() = get("vanityMeta", null) { VanityMeta(it.`object`().children) }
 
-    val stats: Stats
-        get() = get("stats") { Stats(it.`object`().children) }
+    val stats: Stats?
+        get() = get("stats", null) { Stats(it.`object`().children) }
 
     class VanityMeta(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children) {
         val packages: List<String>
