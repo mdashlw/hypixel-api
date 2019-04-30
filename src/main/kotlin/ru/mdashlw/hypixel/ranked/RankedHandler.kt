@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter
 
 object RankedHandler {
     private const val SEASONS_URL =
-        "https://raw.githubusercontent.com/mdashlw/hypixel-ranked-seasons/master/seasons.json"
+        "https://gitlab.com/mdashlw/hypixel-ranked-seasons/raw/master/seasons.json"
 
     @JvmField
     val FIRST_SEASON_DATE: LocalDate = LocalDate.of(2016, Month.APRIL, 1)

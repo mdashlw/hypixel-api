@@ -9,4 +9,6 @@ enum class CosmeticType(val apiName: String, val localizedName: String) {
     BALLOON("balloon", "Balloon"),
     KILL_MESSAGES("killmessages", "Kill Messages"),
     SPRAYS("sprays", "Sprays");
+
+    override fun toString(): String = localizedName
 }

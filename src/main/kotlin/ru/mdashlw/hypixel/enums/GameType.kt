@@ -26,4 +26,6 @@ enum class GameType(val localizedName: String) {
     MURDER_MYSTERY("Murder Mystery"),
     BUILD_BATTLE("Build Battle"),
     DUELS("Duels");
+
+    override fun toString(): String = localizedName
 }
