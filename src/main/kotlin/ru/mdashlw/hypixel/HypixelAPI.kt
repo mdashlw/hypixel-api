@@ -42,7 +42,7 @@ object HypixelAPI {
     fun getGuildByPlayer(uuid: String): Guild? =
         get(GuildReply::class, "guild", "player" to uuid)
 
-    fun <R : Reply<T>, T> get(clazz: KClass<R>, endpoint: String, parameter: Pair<String, Any>? = null): T? {
+    fun <R : Reply<T>, T> get(replyClass: KClass<R>, endpoint: String, parameter: Pair<String, Any>? = null): T? {
         var url = "$BASE_URL$endpoint?key=$apiKey"
 
         parameter?.let { (key, value) ->
@@ -50,7 +50,7 @@ object HypixelAPI {
         }
 
         val response = okHttpClient.newCall(url)
-        val reply = jackson.readValue(response, clazz.java)
+        val reply = jackson.readValue(response, replyClass.java)
 
         reply.run {
             if (throttle) {

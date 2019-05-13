@@ -8,8 +8,7 @@ import java.time.LocalDate
 data class RankedSeason(
     val number: Int,
     val leaderboard: Leaderboard? = null,
-    @JsonProperty("hiddenInAPI")
-    val isHiddenInAPI: Boolean = false
+    @JsonProperty("hiddenInAPI") val isHiddenInAPI: Boolean = false
 ) {
     val date: LocalDate = RankedHandler.FIRST_SEASON_DATE.plusMonths(number - 1L)
 
