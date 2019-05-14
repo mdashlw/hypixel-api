@@ -10,9 +10,6 @@ import ru.mdashlw.hypixel.api.elements.player.HypixelPlayer
 import ru.mdashlw.hypixel.api.exceptions.HypixelApiException
 import ru.mdashlw.hypixel.api.exceptions.HypixelApiThrottleException
 import ru.mdashlw.hypixel.api.reply.Reply
-import ru.mdashlw.hypixel.api.reply.impl.GuildReply
-import ru.mdashlw.hypixel.api.reply.impl.PlayerReply
-import ru.mdashlw.hypixel.api.reply.impl.SessionReply
 import ru.mdashlw.hypixel.api.util.newCall
 import java.util.*
 import kotlin.reflect.KClass
@@ -27,20 +24,15 @@ object HypixelAPI {
     var outputMode: OutputMode = HypixelAPI.OutputMode.RAW
     lateinit var apiKey: UUID
 
-    fun getPlayerByUUID(uuid: String): HypixelPlayer? =
-        get(PlayerReply::class, "player", "uuid" to uuid)
+    fun getPlayerByUUID(uuid: String): HypixelPlayer? = get("player", "uuid" to uuid)
 
-    fun getPlayerByName(name: String): HypixelPlayer? =
-        get(PlayerReply::class, "player", "name" to name)
+    fun getPlayerByName(name: String): HypixelPlayer? = get("player", "name" to name)
 
-    fun getSessionByUUID(uuid: String): Session? =
-        get(SessionReply::class, "session", "uuid" to uuid)
+    fun getSessionByUUID(uuid: String): Session? = get("session", "uuid" to uuid)
 
-    fun getGuildByName(name: String): Guild? =
-        get(GuildReply::class, "guild", "name" to name)
+    fun getGuildByName(name: String): Guild? = get("guild", "name" to name)
 
-    fun getGuildByPlayer(uuid: String): Guild? =
-        get(GuildReply::class, "guild", "player" to uuid)
+    fun getGuildByPlayer(uuid: String): Guild? = get("guild", "player" to uuid)
 
     fun <R : Reply<T>, T> get(replyClass: KClass<R>, endpoint: String, parameter: Pair<String, Any>? = null): T? {
         var url = "$BASE_URL$endpoint?key=$apiKey"
@@ -62,6 +54,9 @@ object HypixelAPI {
             return element
         }
     }
+
+    inline fun <reified R : Reply<T>, T> get(endpoint: String, parameter: Pair<String, Any>? = null): T? =
+        get(R::class, endpoint, parameter)
 
     enum class OutputMode {
         RAW,
