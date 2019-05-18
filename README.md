@@ -73,49 +73,119 @@ dependencies {
 
 ## Usage
 
-### Getting Started
+### API key
 
-To start working with Hypixel API, you need to private an API key.
+To use Hypixel Public API you must provide an API key.
 
-You can get your api key via `/api new` on Hypixel Network.
+You can get your key by doing `/api new` on Hypixel.
+
+#### Setting
 
 ```kotlin
-HypixelAPI.apiKey = UUID.fromString("API_KEY_HERE")
+HypixelAPI.apiKey = UUID.fromString("API_KEY")
 ```
 
-You can customize the mode of outputs:
+### Output Mode
 
-* Raw - just plain text, without any formatting.
-* Markdown - with markdown formatting.
-* Colorized - with minecraft color codes.
+Output mode is used in formatting display names. *(Player/Guild/etc)*
+
+* Raw `(RAW)` — just plain text, without any formatting.
+* Markdown `(MARKDOWN)` — with markdown formatting.
+* Colorized `(COLORIZED)` — with minecraft color codes.
 
 The default is **Raw**.
 
-Changing the mode:
+#### Setting
 
 ```kotlin
 HypixelAPI.outputMode = HypixelAPI.OutputMode.COLORIZED
 ```
 
-### Player
+### Methods
+
+**Note**: All return types are nullable.
+
+**Note:** All UUIDs can be both dashed and undashed.
+
+#### Getting a player information
+
+Returns: **Player**.
 
 ```kotlin
-HypixelAPI.getPlayerByUUUID("uuid_here") // Can be both dashed and undashed
-HypixelAPI.getPlayerByName("name_here")
+HypixelAPI.getPlayerByUUUID("uuid")
+HypixelAPI.getPlayerByName("nickname")
 ```
 
-### Session
+#### Getting player's session information
+
+Returns: **Session**.
 
 ```kotlin
-HypixelAPI.getSessionByUUID("uuid_here") // Can be both dashed and undashed
+HypixelAPI.getSessionByUUID("uuid")
 ```
+
+#### Getting a guild information by name/player
+
+Returns: **Guild**.
+
+```kotlin
+HypixelAPI.getGuildByName("guild_name")
+HypixelAPI.getGuildByPlayer("player_uuid")
+```
+
+### Entities
+
+#### Player
+
+Represents a Hypixel player.
+
+*Soon...*
+
+#### Session
+
+Represents a session.
+
+|   Property  	|                                                           Type                                                          	|           Description          	|
+|:-----------:	|:-----------------------------------------------------------------------------------------------------------------------:	|:------------------------------:	|
+|   **game**  	| [GameType](https://gitlab.com/mdashlw/hypixel-api/blob/master/src/main/kotlin/ru/mdashlw/hypixel/api/enums/GameType.kt) 	|              Game              	|
+|  **server** 	|                                                          String                                                         	|             Server             	|
+| **players** 	|                                                       List<String>                                                      	| UUIDs of players on the server 	|
 
 ### Guild
 
-```kotlin
-HypixelAPI.getGuildByName("guild_name_here")
-HypixelAPI.getGuildByPlayer("player_uuid_here") // Can be both dashed and undashed
-```
+Represents a guild.
+
+|      Property      	|      Type     	|        Description        	|
+|:------------------:	|:-------------:	|:-------------------------:	|
+|      **name**      	|     String    	|            Name           	|
+|      **coins**     	|      Int      	|           Coins           	|
+|     **members**    	|  List<Member> 	|          Members          	|
+|    **joinable**    	|    Boolean    	|     Is guild joinable?    	|
+| **publiclyListed** 	|    Boolean    	| Is guild publicly listed? 	|
+|       **tag**      	|    String?    	|            Tag            	|
+|  **achievements**  	| Achievements? 	|        Achievements       	|
+|       **exp**      	|      Long     	|            Exp            	|
+|  **legacyRanking** 	|      Int      	|        Legacy rank        	|
+|   **description**  	|     String    	|        Description        	|
+
+#### Member
+
+Represents a guild member.
+
+| Property 	|  Type  	| Description 	|
+|:--------:	|:------:	|:-----------:	|
+| **uuid** 	| String 	|     UUID    	|
+| **rank** 	| String 	|     Rank    	|
+
+#### Achievements
+
+Represents guild achievements.
+
+|       Property      	| Type 	|    Description   	|
+|:-------------------:	|:----:	|:----------------:	|
+|     **winners**     	|  Int 	|      Winners     	|
+| **experienceKings** 	|  Int 	| Experience kings 	|
+|  **onlinePlayers**  	|  Int 	|  Online players  	|
 
 ## License
 
