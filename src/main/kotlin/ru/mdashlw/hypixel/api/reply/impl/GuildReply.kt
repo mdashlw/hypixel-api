@@ -1,6 +1,6 @@
 package ru.mdashlw.hypixel.api.reply.impl
 
-import ru.mdashlw.hypixel.api.elements.Guild
+import ru.mdashlw.hypixel.api.entities.Guild
 import ru.mdashlw.hypixel.api.reply.Reply
 
 class GuildReply(

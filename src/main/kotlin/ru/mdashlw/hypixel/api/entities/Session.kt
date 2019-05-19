@@ -1,4 +1,4 @@
-package ru.mdashlw.hypixel.api.elements
+package ru.mdashlw.hypixel.api.entities
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import ru.mdashlw.hypixel.api.enums.GameType

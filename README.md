@@ -73,47 +73,46 @@ dependencies {
 
 ## Usage
 
-### API key
+### Setup
+
+#### API Key
 
 To use Hypixel Public API you must provide an API key.
-
 You can get your key by doing `/api new` on Hypixel.
 
-#### Setting
+You can provide many API keys, it will use random key.
 
 ```kotlin
-HypixelAPI.apiKey = UUID.fromString("API_KEY")
+HypixelApi.setup(listOf("key1", "key2"))
 ```
 
-### Output Mode
+#### Output Mode
 
 Output mode is used in formatting display names. *(Player/Guild/etc)*
+
+The default is **Raw**.
 
 * Raw `(RAW)` — just plain text, without any formatting.
 * Markdown `(MARKDOWN)` — with markdown formatting.
 * Colorized `(COLORIZED)` — with minecraft color codes.
 
-The default is **Raw**.
-
-#### Setting
-
 ```kotlin
-HypixelAPI.outputMode = HypixelAPI.OutputMode.COLORIZED
+HypixelApi.setup(listOf("key1", "key2"), HypixelAPI.OutputMode.MARKDOWN)
 ```
 
 ### Methods
 
 **Note**: All return types are nullable.
 
-**Note:** All UUIDs can be both dashed and undashed.
+**Note:** UUIDs can be both dashed and undashed.
 
 #### Getting a player information
 
 Returns: **Player**.
 
 ```kotlin
-HypixelAPI.getPlayerByUUUID("uuid")
-HypixelAPI.getPlayerByName("nickname")
+HypixelApi.getPlayerByUuid("uuid")
+HypixelApi.getPlayerByName("nickname")
 ```
 
 #### Getting player's session information
@@ -121,7 +120,7 @@ HypixelAPI.getPlayerByName("nickname")
 Returns: **Session**.
 
 ```kotlin
-HypixelAPI.getSessionByUUID("uuid")
+HypixelApi.getSessionByUuid("uuid")
 ```
 
 #### Getting a guild information by name/player
@@ -129,8 +128,8 @@ HypixelAPI.getSessionByUUID("uuid")
 Returns: **Guild**.
 
 ```kotlin
-HypixelAPI.getGuildByName("guild_name")
-HypixelAPI.getGuildByPlayer("player_uuid")
+HypixelApi.getGuildByName("guild_name")
+HypixelApi.getGuildByPlayer("player_uuid")
 ```
 
 ### Entities
@@ -163,7 +162,7 @@ Represents a guild.
 |    **joinable**    	|    Boolean    	|     Is guild joinable?    	|
 | **publiclyListed** 	|    Boolean    	| Is guild publicly listed? 	|
 |       **tag**      	|    String?    	|            Tag            	|
-|  **achievements**  	| Achievements? 	|        Achievements       	|
+|  **achievements**  	| Map<String, Int>? |        Achievements       	|
 |       **exp**      	|      Long     	|            Exp            	|
 |  **legacyRanking** 	|      Int      	|        Legacy rank        	|
 |   **description**  	|     String    	|        Description        	|
@@ -176,16 +175,6 @@ Represents a guild member.
 |:--------:	|:------:	|:-----------:	|
 | **uuid** 	| String 	|     UUID    	|
 | **rank** 	| String 	|     Rank    	|
-
-#### Achievements
-
-Represents guild achievements.
-
-|       Property      	| Type 	|    Description   	|
-|:-------------------:	|:----:	|:----------------:	|
-|     **winners**     	|  Int 	|      Winners     	|
-| **experienceKings** 	|  Int 	| Experience kings 	|
-|  **onlinePlayers**  	|  Int 	|  Online players  	|
 
 ## License
 

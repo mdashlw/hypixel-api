@@ -36,7 +36,7 @@ data class RankedSeason(
         fun getByName(name: String): RankedPlayer? =
             find { it.name == name }
 
-        fun getByUUID(uuid: String): RankedPlayer? =
+        fun getByUuid(uuid: String): RankedPlayer? =
             find { it.uuid == uuid }
     }
 }

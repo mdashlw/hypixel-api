@@ -1,4 +1,4 @@
-package ru.mdashlw.hypixel.api.elements.player.stats.games
+package ru.mdashlw.hypixel.api.entities.player.stats.games
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory

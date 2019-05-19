@@ -1,8 +1,7 @@
-package ru.mdashlw.hypixel.api.elements
+package ru.mdashlw.hypixel.api.entities
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
-import ru.mdashlw.hypixel.api.HypixelAPI
+import ru.mdashlw.hypixel.api.HypixelApi
 import ru.mdashlw.hypixel.api.util.GuildLevelingUtil
 
 data class Guild(
@@ -12,7 +11,7 @@ data class Guild(
     val joinable: Boolean = false,
     val publiclyListed: Boolean = false,
     val tag: String? = null,
-    val achievements: Achievements? = null,
+    val achievements: Map<String, Int>? = null,
     val exp: Long,
     val legacyRanking: Int = 0,
     val description: String? = null
@@ -25,22 +24,16 @@ data class Guild(
 
     @JsonIgnore
     val formattedDisplayname: String =
-        when (HypixelAPI.outputMode) {
+        when (HypixelApi.outputMode) {
             // TODO Make colorized seperated
-            HypixelAPI.OutputMode.RAW, HypixelAPI.OutputMode.COLORIZED ->
+            HypixelApi.OutputMode.RAW, HypixelApi.OutputMode.COLORIZED ->
                 tag?.let { "[$it] $name" } ?: name
-            HypixelAPI.OutputMode.MARKDOWN ->
+            HypixelApi.OutputMode.MARKDOWN ->
                 "[${tag?.let { "[$it] $name" } ?: name}]($planckeURL)"
         }
 
     data class Member(
         val uuid: String,
         val rank: String
-    )
-
-    data class Achievements(
-        @JsonProperty("WINNERS") val winners: Int = 0,
-        @JsonProperty("EXPERIENCE_KINGS") val experienceKings: Int = 0,
-        @JsonProperty("ONLINE_PLAYERS") val onlinePlayers: Int = 0
     )
 }
