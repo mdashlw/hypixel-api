@@ -11,6 +11,10 @@ import ru.mdashlw.hypixel.api.entities.player.HypixelPlayer
 import ru.mdashlw.hypixel.api.exceptions.HypixelApiException
 import ru.mdashlw.hypixel.api.exceptions.HypixelApiThrottleException
 import ru.mdashlw.hypixel.api.reply.Reply
+import ru.mdashlw.hypixel.api.reply.impl.GuildReply
+import ru.mdashlw.hypixel.api.reply.impl.KeyReply
+import ru.mdashlw.hypixel.api.reply.impl.PlayerReply
+import ru.mdashlw.hypixel.api.reply.impl.SessionReply
 import ru.mdashlw.hypixel.api.util.newCall
 import kotlin.reflect.KClass
 
@@ -33,17 +37,17 @@ object HypixelApi {
         setup(listOf(key), outputMode)
     }
 
-    fun getPlayerByUuid(uuid: String): HypixelPlayer? = get("player", "uuid" to uuid)
+    fun getPlayerByUuid(uuid: String): HypixelPlayer? = get<PlayerReply, HypixelPlayer>("player", "uuid" to uuid)
 
-    fun getPlayerByName(name: String): HypixelPlayer? = get("player", "name" to name)
+    fun getPlayerByName(name: String): HypixelPlayer? = get<PlayerReply, HypixelPlayer>("player", "name" to name)
 
-    fun getSessionByUuid(uuid: String): Session? = get("session", "uuid" to uuid)
+    fun getSessionByUuid(uuid: String): Session? = get<SessionReply, Session>("session", "uuid" to uuid)
 
-    fun getGuildByName(name: String): Guild? = get("guild", "name" to name)
+    fun getGuildByName(name: String): Guild? = get<GuildReply, Guild>("guild", "name" to name)
 
-    fun getGuildByPlayer(uuid: String): Guild? = get("guild", "player" to uuid)
+    fun getGuildByPlayer(uuid: String): Guild? = get<GuildReply, Guild>("guild", "player" to uuid)
 
-    fun getKey(key: String): Key? = get("key", key = key)
+    fun getKey(key: String): Key? = get<KeyReply, Key>("key", key = key)
 
     inline fun <reified R : Reply<T>, T> get(
         endpoint: String,
@@ -51,8 +55,7 @@ object HypixelApi {
         key: String = keys.random()
     ): T? = get(R::class, endpoint, parameter, key)
 
-    @PublishedApi
-    internal fun <R : Reply<T>, T> get(
+    fun <R : Reply<T>, T> get(
         replyClass: KClass<R>,
         endpoint: String,
         parameter: Pair<String, Any>?,
