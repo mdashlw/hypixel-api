@@ -3,6 +3,7 @@ package ru.mdashlw.hypixel.api.entities.player.stats.games
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
+import ru.mdashlw.hypixel.api.entities.player.stats.Game
 import ru.mdashlw.hypixel.api.enums.*
 import ru.mdashlw.hypixel.api.ranked.RankedSeason
 import ru.mdashlw.hypixel.api.util.get
@@ -10,7 +11,9 @@ import ru.mdashlw.hypixel.api.util.int
 import ru.mdashlw.hypixel.api.util.long
 import ru.mdashlw.hypixel.api.util.text
 
-class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children) {
+class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children), Game {
+    override val localizedName: String = "SkyWars"
+
     val packages: List<String>
         get() = get("packages", emptyList()) { it.map(JsonNode::textValue) }
 
