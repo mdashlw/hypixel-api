@@ -12,8 +12,6 @@ import ru.mdashlw.hypixel.api.enums.Rank
 import ru.mdashlw.hypixel.api.enums.RankedDivision
 import ru.mdashlw.hypixel.api.enums.RankedHat
 import ru.mdashlw.hypixel.api.extensions.uncolorize
-import ru.mdashlw.hypixel.api.ranked.RankedHandler
-import ru.mdashlw.hypixel.api.ranked.RankedSeason
 import ru.mdashlw.hypixel.api.util.*
 
 @JsonDeserialize(using = HypixelPlayerDeserializer::class)
@@ -36,12 +34,12 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
 
     val rank: Rank
         get() {
-            val rank = get("rank", null, JsonNode::text).takeIf { it != "NORMAL" }
-            val monthlyPackageRank = get("monthlyPackageRank", null, JsonNode::text).takeIf { it != "NONE" }
-            val newPackageRank = get("newPackageRank", null, JsonNode::text).takeIf { it != "NONE" }
-            val packageRank = get("packageRank", null, JsonNode::text).takeIf { it != "NONE" }
+            val rank = get("rank", null, JsonNode::text).takeUnless("NORMAL"::equals)
+            val monthlyPackageRank = get("monthlyPackageRank", null, JsonNode::text).takeUnless("NONE"::equals)
+            val newPackageRank = get("newPackageRank", null, JsonNode::text).takeUnless("NONE"::equals)
+            val packageRank = get("packageRank", null, JsonNode::text).takeUnless("NONE"::equals)
 
-            return Rank.valueOf(rank ?: monthlyPackageRank ?: newPackageRank ?: packageRank ?: "DEFAULT")
+            return (rank ?: monthlyPackageRank ?: newPackageRank ?: packageRank)?.let(Rank::valueOf) ?: Rank.DEFAULT
         }
 
     val networkExp: Long
@@ -68,57 +66,26 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
     val highestRankedDivision: RankedDivision?
         get() = vanityMeta?.run { RankedHat.values().find { it.apiName in packages }?.toRankedDivision() }
 
-    // TODO Optimize and simplify
-    val rankedSeasons: Map<RankedSeason, Pair<Int, Int>>
-        get() = RankedHandler.seasons
-            .asSequence()
-            .filter(RankedSeason::isHiddenInAPI)
-            .map {
-                val player = it.leaderboard?.getByUuid(uuid)
-                    ?: return@map null
-
-                it to player.ranked.run { rating to position }
-            }
-            .plus(
-                RankedHandler.seasons
-                    .asSequence()
-                    .filterNot(RankedSeason::isHiddenInAPI)
-                    .map { season ->
-                        val game = stats?.SkyWars ?: return@map null
-
-                        val rating = game.getRating(season)
-                        val position = game.getPosition(season)
-
-                        if (rating == 0 && position == 0) {
-                            return@map null
-                        }
-
-                        season to (rating to position + 1)
-                    }
-            )
-            .filterNotNull()
-            .toMap()
-
     val achievements: Map<String, Int>
-        get() = get("achievements", emptyMap()) { it.`object`().children.mapValues { it.value.int() } }
+        get() = get("achievements", emptyMap()) { it.obj().children.mapValues { it.value.int() } }
 
     val questsCompleted: Int
         get() = achievements.getOrDefault("general_quest_master", 0)
 
-    val planckeURL: String
+    val planckeUrl: String
         get() = "https://plancke.io/hypixel/player/stats/$uuid"
 
-    val skinURL: String
+    val skinUrl: String
         get() = "https://visage.surgeplay.com/full/$uuid.png"
 
-    val faceURL: String
+    val faceUrl: String
         get() = "https://visage.surgeplay.com/face/$uuid.png"
 
     val level: Double
         get() = LevelingUtil.getExactLevel(networkExp.toDouble())
 
     val guild: Guild?
-        get() = HypixelApi.getGuildByPlayer(uuid)
+        get() = HypixelApi.retrieveGuildByPlayer(uuid)
 
     val isStaff: Boolean
         get() = get("rank", "NORMAL", JsonNode::text) != "NORMAL"
@@ -131,16 +98,16 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
             HypixelApi.OutputMode.RAW ->
                 "${prefix?.let { "$it " } ?: rank.uncolorizedName}$displayname"
             HypixelApi.OutputMode.MARKDOWN ->
-                "[${prefix?.let { "$it " } ?: rank.uncolorizedName}$displayname]($planckeURL)"
+                "[${prefix?.let { "$it " } ?: rank.uncolorizedName}$displayname]($planckeUrl)"
             HypixelApi.OutputMode.COLORIZED ->
                 "${prefix?.let { "$it " } ?: rank.colorizedName}$displayname"
         }
 
     val vanityMeta: VanityMeta?
-        get() = get("vanityMeta", null) { VanityMeta(it.`object`().children) }
+        get() = get("vanityMeta", null) { VanityMeta(it.obj().children) }
 
     val stats: Stats?
-        get() = get("stats", null) { Stats(it.`object`().children) }
+        get() = get("stats", null) { Stats(it.obj().children) }
 
     class VanityMeta(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children) {
         val packages: List<String>

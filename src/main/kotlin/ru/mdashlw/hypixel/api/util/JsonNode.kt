@@ -7,10 +7,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 
 // TODO Move to ru.mdashlw.util:common-util, module jackson
 
-internal inline fun JsonNode.text() = textValue()
+inline fun JsonNode.text() = textValue()
 
-internal inline fun JsonNode.long() = longValue()
+inline fun JsonNode.long() = longValue()
 
-internal inline fun JsonNode.int() = intValue()
+inline fun JsonNode.int() = intValue()
 
-internal inline fun JsonNode.`object`() = this as ObjectNode
+inline fun JsonNode.obj() = this as ObjectNode

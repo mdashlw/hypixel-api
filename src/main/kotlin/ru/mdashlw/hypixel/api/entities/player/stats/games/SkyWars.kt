@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import ru.mdashlw.hypixel.api.entities.player.stats.Game
 import ru.mdashlw.hypixel.api.enums.*
-import ru.mdashlw.hypixel.api.ranked.RankedSeason
 import ru.mdashlw.hypixel.api.util.get
-import ru.mdashlw.hypixel.api.util.int
 import ru.mdashlw.hypixel.api.util.long
 import ru.mdashlw.hypixel.api.util.text
 
@@ -20,7 +18,7 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
     val rankedKitsTimePlayed: Map<RankedKit, Long>
         get() = RankedKit.values()
             .map { it to getKitTimePlayed(it) }
-            .sortedByDescending { it.second }
+            .sortedByDescending(Pair<RankedKit, Long>::second)
             .toMap()
             .filterValues { it != 0L }
 
@@ -33,15 +31,11 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
     val rankedRewards: Map<RankedDivision, List<RankedReward>>
         get() = RankedReward.values()
             .filter { it.apiName in packages }
-            .groupBy { it.division }
+            .groupBy(RankedReward::division)
 
     fun hasRewards(division: RankedDivision): Boolean = division.rewards.any { it.apiName in packages }
 
-    fun getRating(season: RankedSeason): Int =
-        get("SkyWars_skywars_rating_${season.hypixelDate}_rating", 0, JsonNode::int)
 
-    fun getPosition(season: RankedSeason): Int =
-        get("SkyWars_skywars_rating_${season.hypixelDate}_position", 0, JsonNode::int)
 
     fun getActiveCosmetic(cosmetic: CosmeticType): String? =
         get("active_${cosmetic.apiName}", null) {
@@ -49,7 +43,7 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
                 .replace(cosmetic.apiName, "")
                 .replace("_", " ")
                 .replace("-", " ")
-                .split(" ")
+                .split(' ')
                 .joinToString(" ", transform = String::capitalize)
                 .trim()
         }

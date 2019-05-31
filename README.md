@@ -97,22 +97,22 @@ The default is **Raw**.
 * Colorized `(COLORIZED)` — with minecraft color codes.
 
 ```kotlin
-HypixelApi.setup(listOf("key1", "key2"), HypixelAPI.OutputMode.MARKDOWN)
+HypixelApi.setup(listOf("key1", "key2"), HypixelApi.OutputMode.MARKDOWN)
 ```
 
 ### Methods
 
-**Note**: All return types are nullable.
+All return types are nullable.
 
-**Note:** UUIDs can be both dashed and undashed.
+UUIDs can be dashed and undashed.
 
 #### Getting a player information
 
 Returns: **Player**.
 
 ```kotlin
-HypixelApi.getPlayerByUuid("uuid")
-HypixelApi.getPlayerByName("nickname")
+HypixelApi.retrievePlayerByUuid("uuid")
+HypixelApi.retrievePlayerByName("nickname")
 ```
 
 #### Getting player's session information
@@ -120,7 +120,7 @@ HypixelApi.getPlayerByName("nickname")
 Returns: **Session**.
 
 ```kotlin
-HypixelApi.getSessionByUuid("uuid")
+HypixelApi.retrieveSessionByUuid("uuid")
 ```
 
 #### Getting a guild information by name/player
@@ -128,8 +128,8 @@ HypixelApi.getSessionByUuid("uuid")
 Returns: **Guild**.
 
 ```kotlin
-HypixelApi.getGuildByName("guild_name")
-HypixelApi.getGuildByPlayer("player_uuid")
+HypixelApi.retrieveGuildByName("guild_name")
+HypixelApi.retrieveGuildByPlayer("player_uuid")
 ```
 
 ### Entities
@@ -138,7 +138,7 @@ HypixelApi.getGuildByPlayer("player_uuid")
 
 Represents a Hypixel player.
 
-*Soon...*
+*Documentation is coming soon.*
 
 #### Session
 

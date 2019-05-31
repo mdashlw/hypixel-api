@@ -21,9 +21,9 @@ import kotlin.reflect.KClass
 object HypixelApi {
     const val BASE_URL = "https://api.hypixel.net/"
 
-    internal val jackson: ObjectMapper = jacksonObjectMapper()
+    private val okHttpClient: OkHttpClient = OkHttpClient()
+    private val jackson: ObjectMapper = jacksonObjectMapper()
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-    internal val okHttpClient: OkHttpClient = OkHttpClient()
 
     lateinit var keys: List<String>
     lateinit var outputMode: OutputMode
@@ -37,17 +37,17 @@ object HypixelApi {
         setup(listOf(key), outputMode)
     }
 
-    fun getPlayerByUuid(uuid: String): HypixelPlayer? = get<PlayerReply, HypixelPlayer>("player", "uuid" to uuid)
+    fun retrievePlayerByUuid(uuid: String): HypixelPlayer? = get<PlayerReply, HypixelPlayer>("player", "uuid" to uuid)
 
-    fun getPlayerByName(name: String): HypixelPlayer? = get<PlayerReply, HypixelPlayer>("player", "name" to name)
+    fun retrievePlayerByName(name: String): HypixelPlayer? = get<PlayerReply, HypixelPlayer>("player", "name" to name)
 
-    fun getSessionByUuid(uuid: String): Session? = get<SessionReply, Session>("session", "uuid" to uuid)
+    fun retrieveSessionByUuid(uuid: String): Session? = get<SessionReply, Session>("session", "uuid" to uuid)
 
-    fun getGuildByName(name: String): Guild? = get<GuildReply, Guild>("guild", "name" to name)
+    fun retrieveGuildByName(name: String): Guild? = get<GuildReply, Guild>("guild", "name" to name)
 
-    fun getGuildByPlayer(uuid: String): Guild? = get<GuildReply, Guild>("guild", "player" to uuid)
+    fun retrieveGuildByPlayer(uuid: String): Guild? = get<GuildReply, Guild>("guild", "player" to uuid)
 
-    fun getKey(key: String): Key? = get<KeyReply, Key>("key", key = key)
+    fun retrieveKey(key: String): Key? = get<KeyReply, Key>("key", key = key)
 
     inline fun <reified R : Reply<T>, T> get(
         endpoint: String,
