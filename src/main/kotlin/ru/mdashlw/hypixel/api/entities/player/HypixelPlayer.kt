@@ -20,7 +20,7 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
         get() = get("uuid", JsonNode::text)
 
     val displayname: String
-        get() = get("displayname", JsonNode::text)
+        get() = get("displayname", "unknown", JsonNode::text)
 
     val prefix: String?
         get() = get<String?>("prefix", null) {
