@@ -17,7 +17,7 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
 
     val rankedKitsTimePlayed: Map<RankedKit, Long>
         get() = RankedKit.values()
-            .map { it to getKitTimePlayed(it) }
+            .map { it to getTimePlayed(it) }
             .sortedByDescending(Pair<RankedKit, Long>::second)
             .toMap()
             .filterValues { it != 0L }
@@ -35,8 +35,6 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
 
     fun hasRewards(division: RankedDivision): Boolean = division.rewards.any { it.apiName in packages }
 
-
-
     fun getActiveCosmetic(cosmetic: CosmeticType): String? =
         get("active_${cosmetic.apiName}", null) {
             it.text()
@@ -48,15 +46,23 @@ class SkyWars(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.inst
                 .trim()
         }
 
-    fun getKitTimePlayed(kit: RankedKit): Long = get("time_played_${kit.apiName}", 0, JsonNode::long)
+    fun getTimePlayed(mode: SkyWarsMode): Long = get("time_played_${mode.apiName}", 0, JsonNode::long)
 
-    fun getKills(mode: SkyWarsMode): Long = get("kills_${mode.apiName}", 0, JsonNode::long)
-
-    fun getDeaths(mode: SkyWarsMode): Long = get("deaths_${mode.apiName}", 0, JsonNode::long)
+    fun getTimePlayed(kit: RankedKit): Long = get("time_played_${kit.apiName}", 0, JsonNode::long)
 
     fun getWins(mode: SkyWarsMode): Long = get("wins_${mode.apiName}", 0, JsonNode::long)
 
     fun getLosses(mode: SkyWarsMode): Long = get("losses_${mode.apiName}", 0, JsonNode::long)
 
-    fun getTimePlayed(mode: SkyWarsMode): Long = get("time_played_${mode.apiName}", 0, JsonNode::long)
+    fun getKills(mode: SkyWarsMode): Long = get("kills_${mode.apiName}", 0, JsonNode::long)
+
+    fun getDeaths(mode: SkyWarsMode): Long = get("deaths_${mode.apiName}", 0, JsonNode::long)
+
+    fun getWins(kit: RankedKit): Long = get("wins_${kit.apiName}", 0, JsonNode::long)
+
+    fun getLosses(kit: RankedKit): Long = get("losses_${kit.apiName}", 0, JsonNode::long)
+
+    fun getKills(kit: RankedKit): Long = get("kills_${kit.apiName}", 0, JsonNode::long)
+
+    fun getDeaths(kit: RankedKit): Long = get("deaths_${kit.apiName}", 0, JsonNode::long)
 }
