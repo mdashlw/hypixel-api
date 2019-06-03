@@ -16,15 +16,17 @@ data class Guild(
     val legacyRanking: Int = 0,
     val description: String? = null
 ) {
-    @JsonIgnore
-    val level: Int = GuildLevelingUtil.getLevel(exp)
+    val level: Int
+        @JsonIgnore
+        get() = GuildLevelingUtil.getLevel(exp)
 
-    @JsonIgnore
-    val planckeUrl: String = "https://plancke.io/hypixel/guild/name/${name.replace(" ", "%20")}"
+    val planckeUrl: String
+        @JsonIgnore
+        get() = "https://plancke.io/hypixel/guild/name/${name.replace(" ", "%20")}"
 
-    @JsonIgnore
-    val formattedDisplayname: String =
-        when (HypixelApi.outputMode) {
+    val formattedDisplayname: String
+        @JsonIgnore
+        get() = when (HypixelApi.outputMode) {
             // TODO Adapt to colorized output mode
             HypixelApi.OutputMode.RAW, HypixelApi.OutputMode.COLORIZED ->
                 tag?.let { "[$it] $name" } ?: name

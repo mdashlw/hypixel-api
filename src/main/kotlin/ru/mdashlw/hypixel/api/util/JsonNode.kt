@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 
 // TODO Move to ru.mdashlw.util:common-util, module jackson
 
-inline fun JsonNode.text() = textValue()
+inline fun JsonNode.text(): String = textValue()
 
 inline fun JsonNode.long() = longValue()
 

@@ -2,7 +2,6 @@ package ru.mdashlw.hypixel.api.entities.player
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import ru.mdashlw.hypixel.api.HypixelApi
 import ru.mdashlw.hypixel.api.adapters.HypixelPlayerDeserializer
@@ -15,7 +14,7 @@ import ru.mdashlw.hypixel.api.extensions.uncolorize
 import ru.mdashlw.hypixel.api.util.*
 
 @JsonDeserialize(using = HypixelPlayerDeserializer::class)
-class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children) {
+class HypixelPlayer(obj: ObjectNode) : CustomObjectNode(obj) {
     val uuid: String
         get() = get("uuid", JsonNode::text)
 
@@ -24,11 +23,9 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
 
     val prefix: String?
         get() = get<String?>("prefix", null) {
-            it.text().run {
-                when (HypixelApi.outputMode) {
-                    HypixelApi.OutputMode.RAW, HypixelApi.OutputMode.MARKDOWN -> uncolorize()
-                    HypixelApi.OutputMode.COLORIZED -> this
-                }
+            when (HypixelApi.outputMode) {
+                HypixelApi.OutputMode.RAW, HypixelApi.OutputMode.MARKDOWN -> it.text().uncolorize()
+                HypixelApi.OutputMode.COLORIZED -> it.text()
             }
         }
 
@@ -103,14 +100,35 @@ class HypixelPlayer(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactor
                 "${prefix?.let { "$it " } ?: rank.colorizedName}$displayname"
         }
 
+    val socialMedia: SocialMedia?
+        get() = get("socialMedia", null) { SocialMedia(it.obj()) }
+
     val vanityMeta: VanityMeta?
-        get() = get("vanityMeta", null) { VanityMeta(it.obj().children) }
+        get() = get("vanityMeta", null) { VanityMeta(it.obj()) }
 
     val stats: Stats?
-        get() = get("stats", null) { Stats(it.obj().children) }
+        get() = get("stats", null) { Stats(it.obj()) }
 
-    class VanityMeta(children: Map<String, JsonNode>) : ObjectNode(JsonNodeFactory.instance, children) {
+    class VanityMeta(obj: ObjectNode) : CustomObjectNode(obj) {
         val packages: List<String>
-            get() = get("packages", emptyList()) { it.map(JsonNode::textValue) }
+            get() = get("packages", emptyList()) { it.map(JsonNode::text) }
+    }
+
+    class SocialMedia(obj: ObjectNode) : CustomObjectNode(obj) {
+        val links: Map<Type, String>
+            get() = get("links", emptyMap()) {
+                it.obj().children.map { (key, value) -> Type.valueOf(key) to value.text() }.toMap()
+            }
+
+        enum class Type(val localizedName: String, val link: Boolean = true) {
+            HYPIXEL("Hypixel Forums"),
+            YOUTUBE("YouTube"),
+            TWITTER("Twitter"),
+            TWITCH("Twitch"),
+            INSTAGRAM("Instagram"),
+            DISCORD("Discord", false);
+
+            override fun toString(): String = localizedName
+        }
     }
 }

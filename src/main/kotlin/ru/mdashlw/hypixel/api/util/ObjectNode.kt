@@ -1,6 +1,7 @@
 package ru.mdashlw.hypixel.api.util
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import ru.mdashlw.util.getField
 
@@ -14,3 +15,5 @@ inline fun <T> ObjectNode.get(field: String, default: T, adapter: (JsonNode) -> 
 
 inline fun <T> ObjectNode.get(field: String, adapter: (JsonNode) -> T): T =
     get(field).let(adapter)
+
+abstract class CustomObjectNode(obj: ObjectNode) : ObjectNode(JsonNodeFactory.instance, obj.children)
