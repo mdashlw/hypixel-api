@@ -125,6 +125,7 @@ class HypixelPlayer(obj: ObjectNode) : CustomObjectNode(obj) {
             YOUTUBE("YouTube"),
             TWITTER("Twitter"),
             TWITCH("Twitch"),
+            MIXER("Mixer"),
             INSTAGRAM("Instagram"),
             DISCORD("Discord", false);
 
