@@ -61,7 +61,11 @@ class HypixelPlayer(obj: ObjectNode) : CustomObjectNode(obj) {
         get() = get("knownAliases", emptyList()) { it.map(JsonNode::text) }
 
     val highestRankedDivision: RankedDivision?
-        get() = vanityMeta?.run { RankedHat.values().find { it.apiName in packages }?.toRankedDivision() }
+        get() {
+            val vanityMeta = vanityMeta ?: return null
+
+            return RankedHat.values().find { it.apiName in vanityMeta.packages }?.toRankedDivision()
+        }
 
     val achievements: Map<String, Int>
         get() = get("achievements", emptyMap()) { it.obj().children.mapValues { it.value.int() } }
