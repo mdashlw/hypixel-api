@@ -82,7 +82,7 @@ class SkyWars(obj: ObjectNode) : Game(obj) {
 
     @Suppress("UNCHECKED_CAST")
     fun <T : Kit> getActiveKit(type: SkyWarsType): T? =
-        get("activeKit_${type.apiName}", null) { type.kits[it.text()] } as T
+        get("activeKit_${type.apiName}", null) { type.kits[it.text()] } as? T
 
     @Suppress("UNCHECKED_CAST")
     fun <T : Kit> getKitsTimePlayed(type: SkyWarsType): Map<T, Long> =
