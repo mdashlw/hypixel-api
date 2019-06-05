@@ -1,6 +1,8 @@
 package ru.mdashlw.hypixel.api.enums
 
-enum class RankedKit(val apiName: String, val localizedName: String) {
+import ru.mdashlw.hypixel.api.interfaces.Kit
+
+enum class RankedKit(override val apiName: String, override val localizedName: String) : Kit {
     DEFAULT("kit_ranked_ranked_default", "Default"),
     SCOUT("kit_ranked_ranked_scout", "Scout"),
     BLACKSMITH("kit_blacksmith_ranked_blacksmith", "Blacksmith"),

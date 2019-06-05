@@ -64,7 +64,7 @@ class HypixelPlayer(obj: ObjectNode) : CustomObjectNode(obj) {
         get() {
             val vanityMeta = vanityMeta ?: return null
 
-            return RankedHat.values().find { it.apiName in vanityMeta.packages }?.toRankedDivision()
+            return RankedHat.values().find { it.apiName in vanityMeta.packages }?.division
         }
 
     val achievements: Map<String, Int>

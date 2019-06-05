@@ -4,36 +4,68 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import ru.mdashlw.hypixel.api.entities.player.stats.Game
 import ru.mdashlw.hypixel.api.enums.*
-import ru.mdashlw.hypixel.api.util.CustomObjectNode
+import ru.mdashlw.hypixel.api.extensions.uncolorize
+import ru.mdashlw.hypixel.api.interfaces.Kit
 import ru.mdashlw.hypixel.api.util.get
+import ru.mdashlw.hypixel.api.util.int
 import ru.mdashlw.hypixel.api.util.long
 import ru.mdashlw.hypixel.api.util.text
 
-class SkyWars(obj: ObjectNode) : CustomObjectNode(obj), Game {
+class SkyWars(obj: ObjectNode) : Game(obj) {
+    override val apiName: String = "SkyWars"
     override val localizedName: String = "SkyWars"
 
-    val packages: List<String>
-        get() = get("packages", emptyList()) { it.map(JsonNode::text) }
+    val experience: Long
+        get() = get("skywars_experience", 0, JsonNode::long)
 
-    val rankedKitsTimePlayed: Map<RankedKit, Long>
-        get() = RankedKit.values()
-            .map { it to getTimePlayed(it) }
-            .sortedByDescending(Pair<RankedKit, Long>::second)
-            .toMap()
-            .filterValues { it != 0L }
+    val level: Int
+        get() = get("levelFormatted", 0) { it.text().uncolorize().dropLast(1).toInt() }
 
-    val activeRankedKit: RankedKit
-        get() = get("activeKit_RANKED", null, JsonNode::text)?.let(RankedKit.Companion::get) ?: RankedKit.DEFAULT
+    val wins: Int
+        get() = get("wins", 0, JsonNode::int)
 
-    val mostUsedRankedKit: RankedKit
-        get() = rankedKitsTimePlayed.keys.firstOrNull() ?: RankedKit.DEFAULT
+    val losses: Int
+        get() = get("losses", 0, JsonNode::int)
+
+    val kills: Int
+        get() = get("kills", 0, JsonNode::int)
+
+    val deaths: Int
+        get() = get("deaths", 0, JsonNode::int)
+
+    val souls: Int
+        get() = get("souls", 0, JsonNode::int)
+
+    val tokens: Int
+        get() = get("cosmetic_tokens", 0, JsonNode::int)
+
+    val timePlayed: Long
+        get() = get("time_played", 0, JsonNode::long)
 
     val rankedRewards: Map<RankedDivision, List<RankedReward>>
         get() = RankedReward.values()
             .filter { it.apiName in packages }
             .groupBy(RankedReward::division)
 
-    fun hasRewards(division: RankedDivision): Boolean = division.rewards.any { it.apiName in packages }
+    fun getWins(mode: SkyWarsMode): Int = get("wins_${mode.apiName}", 0, JsonNode::int)
+
+    fun getLosses(mode: SkyWarsMode): Int = get("losses_${mode.apiName}", 0, JsonNode::int)
+
+    fun getKills(mode: SkyWarsMode): Int = get("kills_${mode.apiName}", 0, JsonNode::int)
+
+    fun getDeaths(mode: SkyWarsMode): Int = get("deaths_${mode.apiName}", 0, JsonNode::int)
+
+    fun getTimePlayed(mode: SkyWarsMode): Long = get("time_played_${mode.apiName}", 0, JsonNode::long)
+
+    fun getWins(kit: Kit): Int = get("wins_${kit.apiName}", 0, JsonNode::int)
+
+    fun getLosses(kit: Kit): Int = get("losses_${kit.apiName}", 0, JsonNode::int)
+
+    fun getKills(kit: Kit): Int = get("kills_${kit.apiName}", 0, JsonNode::int)
+
+    fun getDeaths(kit: Kit): Int = get("deaths_${kit.apiName}", 0, JsonNode::int)
+
+    fun getTimePlayed(kit: Kit): Long = get("time_played_${kit.apiName}", 0, JsonNode::long)
 
     fun getActiveCosmetic(cosmetic: CosmeticType): String? =
         get("active_${cosmetic.apiName}", null) {
@@ -46,23 +78,19 @@ class SkyWars(obj: ObjectNode) : CustomObjectNode(obj), Game {
                 .trim()
         }
 
-    fun getTimePlayed(mode: SkyWarsMode): Long = get("time_played_${mode.apiName}", 0, JsonNode::long)
+    fun hasRewards(division: RankedDivision): Boolean = division.rewards.any { it.apiName in packages }
 
-    fun getTimePlayed(kit: RankedKit): Long = get("time_played_${kit.apiName}", 0, JsonNode::long)
+    @Suppress("UNCHECKED_CAST")
+    fun <T : Kit> getActiveKit(type: SkyWarsType): T? =
+        get("activeKit_${type.apiName}", null) { type.kits[it.text()] } as T
 
-    fun getWins(mode: SkyWarsMode): Long = get("wins_${mode.apiName}", 0, JsonNode::long)
+    @Suppress("UNCHECKED_CAST")
+    fun <T : Kit> getKitsTimePlayed(type: SkyWarsType): Map<T, Long> =
+        type.kits
+            .map { (it as T) to getTimePlayed(it) }
+            .sortedByDescending(Pair<T, Long>::second)
+            .toMap()
+            .filterValues { it != 0L }
 
-    fun getLosses(mode: SkyWarsMode): Long = get("losses_${mode.apiName}", 0, JsonNode::long)
-
-    fun getKills(mode: SkyWarsMode): Long = get("kills_${mode.apiName}", 0, JsonNode::long)
-
-    fun getDeaths(mode: SkyWarsMode): Long = get("deaths_${mode.apiName}", 0, JsonNode::long)
-
-    fun getWins(kit: RankedKit): Long = get("wins_${kit.apiName}", 0, JsonNode::long)
-
-    fun getLosses(kit: RankedKit): Long = get("losses_${kit.apiName}", 0, JsonNode::long)
-
-    fun getKills(kit: RankedKit): Long = get("kills_${kit.apiName}", 0, JsonNode::long)
-
-    fun getDeaths(kit: RankedKit): Long = get("deaths_${kit.apiName}", 0, JsonNode::long)
+    fun <T : Kit> getMostUsedKit(type: SkyWarsType): T? = getKitsTimePlayed<T>(type).keys.firstOrNull()
 }
