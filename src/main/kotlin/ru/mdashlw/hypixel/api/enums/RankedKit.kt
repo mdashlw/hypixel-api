@@ -13,6 +13,7 @@ enum class RankedKit(override val apiName: String, override val localizedName: S
     BOWMAN("kit_ranked_ranked_bowman", "Bowman"),
     MAGICIAN("kit_ranked_ranked_magician", "Magician"),
     HEALER("kit_ranked_ranked_healer", "Healer"),
+    HOUND("kit_ranked_ranked_hound", "Hound"),
     PYROMANCER("kit_ranked_ranked_pyromancer", "Pyromancer");
 
     override fun toString(): String = localizedName
