@@ -19,7 +19,7 @@ class SkyWars(obj: ObjectNode) : Game(obj) {
         get() = get("skywars_experience", 0, JsonNode::long)
 
     val level: Int
-        get() = get("levelFormatted", 0) { it.text().uncolorize().dropLast(1).toInt() }
+        get() = get("levelFormatted", 0) { it.text().uncolorize().filter(Character::isDigit).toInt() }
 
     val wins: Int
         get() = get("wins", 0, JsonNode::int)
