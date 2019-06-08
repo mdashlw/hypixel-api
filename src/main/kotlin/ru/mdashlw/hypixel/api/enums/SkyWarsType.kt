@@ -1,8 +1,8 @@
 package ru.mdashlw.hypixel.api.enums
 
-import ru.mdashlw.hypixel.api.interfaces.Kit
+import ru.mdashlw.hypixel.api.interfaces.kits.SkyWarsKit
 
-enum class SkyWarsType(val apiName: String, val localizedName: String, val kits: Array<out Kit>) {
+enum class SkyWarsType(val apiName: String, val localizedName: String, val kits: Array<out SkyWarsKit>) {
     NORMAL("SOLO", "Normal", SkyWarsNormalKit.values()),
     INSANE("TEAMS", "Insane", SkyWarsInsaneKit.values()),
     MEGA("MEGA", "Mega", SkyWarsMegaKit.values()),

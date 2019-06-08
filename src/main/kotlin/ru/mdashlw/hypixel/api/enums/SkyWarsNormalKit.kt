@@ -1,8 +1,8 @@
 package ru.mdashlw.hypixel.api.enums
 
-import ru.mdashlw.hypixel.api.interfaces.Kit
+import ru.mdashlw.hypixel.api.interfaces.kits.SkyWarsKit
 
-enum class SkyWarsNormalKit(override val apiName: String, override val localizedName: String) : Kit {
+enum class SkyWarsNormalKit(override val apiName: String, override val localizedName: String) : SkyWarsKit {
     DEFAULT("kit_basic_solo_default", "Default"),
     ARMORER("kit_advanced_solo_armorer", "Armorer"),
     ARMORSMITH("kit_basic_solo_armorsmith", "Armorsmith"),

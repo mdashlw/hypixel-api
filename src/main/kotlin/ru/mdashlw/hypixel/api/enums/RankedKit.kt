@@ -1,8 +1,8 @@
 package ru.mdashlw.hypixel.api.enums
 
-import ru.mdashlw.hypixel.api.interfaces.Kit
+import ru.mdashlw.hypixel.api.interfaces.kits.SkyWarsKit
 
-enum class RankedKit(override val apiName: String, override val localizedName: String) : Kit {
+enum class RankedKit(override val apiName: String, override val localizedName: String) : SkyWarsKit {
     DEFAULT("kit_ranked_ranked_default", "Default"),
     SCOUT("kit_ranked_ranked_scout", "Scout"),
     MAGICIAN("kit_ranked_ranked_magician", "Magician"),

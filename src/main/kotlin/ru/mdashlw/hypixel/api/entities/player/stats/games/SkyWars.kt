@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import ru.mdashlw.hypixel.api.entities.player.stats.Game
 import ru.mdashlw.hypixel.api.enums.*
 import ru.mdashlw.hypixel.api.extensions.uncolorize
-import ru.mdashlw.hypixel.api.interfaces.Kit
+import ru.mdashlw.hypixel.api.interfaces.kits.SkyWarsKit
 import ru.mdashlw.hypixel.api.util.get
 import ru.mdashlw.hypixel.api.util.int
 import ru.mdashlw.hypixel.api.util.long
@@ -57,15 +57,15 @@ class SkyWars(obj: ObjectNode) : Game(obj) {
 
     fun getTimePlayed(mode: SkyWarsMode): Long = get("time_played_${mode.apiName}", 0, JsonNode::long)
 
-    fun getWins(kit: Kit): Int = get("wins_${kit.apiName}", 0, JsonNode::int)
+    fun getWins(kit: SkyWarsKit): Int = get("wins_${kit.apiName}", 0, JsonNode::int)
 
-    fun getLosses(kit: Kit): Int = get("losses_${kit.apiName}", 0, JsonNode::int)
+    fun getLosses(kit: SkyWarsKit): Int = get("losses_${kit.apiName}", 0, JsonNode::int)
 
-    fun getKills(kit: Kit): Int = get("kills_${kit.apiName}", 0, JsonNode::int)
+    fun getKills(kit: SkyWarsKit): Int = get("kills_${kit.apiName}", 0, JsonNode::int)
 
-    fun getDeaths(kit: Kit): Int = get("deaths_${kit.apiName}", 0, JsonNode::int)
+    fun getDeaths(kit: SkyWarsKit): Int = get("deaths_${kit.apiName}", 0, JsonNode::int)
 
-    fun getTimePlayed(kit: Kit): Long = get("time_played_${kit.apiName}", 0, JsonNode::long)
+    fun getTimePlayed(kit: SkyWarsKit): Long = get("time_played_${kit.apiName}", 0, JsonNode::long)
 
     fun getActiveCosmetic(cosmetic: CosmeticType): String? =
         get("active_${cosmetic.apiName}", null) {
@@ -81,16 +81,16 @@ class SkyWars(obj: ObjectNode) : Game(obj) {
     fun hasRewards(division: RankedDivision): Boolean = division.rewards.any { it.apiName in packages }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Kit> getActiveKit(type: SkyWarsType): T? =
+    fun <T : SkyWarsKit> getActiveKit(type: SkyWarsType): T? =
         get("activeKit_${type.apiName}", null) { type.kits[it.text()] } as? T
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Kit> getKitsTimePlayed(type: SkyWarsType): Map<T, Long> =
+    fun <T : SkyWarsKit> getKitsTimePlayed(type: SkyWarsType): Map<T, Long> =
         type.kits
             .map { (it as T) to getTimePlayed(it) }
             .sortedByDescending(Pair<T, Long>::second)
             .toMap()
             .filterValues { it != 0L }
 
-    fun <T : Kit> getMostUsedKit(type: SkyWarsType): T? = getKitsTimePlayed<T>(type).keys.firstOrNull()
+    fun <T : SkyWarsKit> getMostUsedKit(type: SkyWarsType): T? = getKitsTimePlayed<T>(type).keys.firstOrNull()
 }
