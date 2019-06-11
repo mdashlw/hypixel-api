@@ -106,7 +106,7 @@ All return types are nullable.
 
 UUIDs can be dashed and undashed.
 
-#### Getting a player information
+#### Getting information about a player
 
 Returns: **Player**.
 
@@ -115,7 +115,7 @@ HypixelApi.retrievePlayerByUuid("uuid")
 HypixelApi.retrievePlayerByName("nickname")
 ```
 
-#### Getting player's session information
+#### Getting information about a player's session
 
 Returns: **Session**.
 
@@ -123,13 +123,21 @@ Returns: **Session**.
 HypixelApi.retrieveSessionByUuid("uuid")
 ```
 
-#### Getting a guild information by name/player
+#### Getting information about a guild by name/player
 
 Returns: **Guild**.
 
 ```kotlin
 HypixelApi.retrieveGuildByName("guild_name")
 HypixelApi.retrieveGuildByPlayer("player_uuid")
+```
+
+#### Getting information about a Hypixel API key
+
+Returns: **Key**.
+
+```kotlin
+HypixelApi.retrieveKey("key")
 ```
 
 ### Entities
@@ -150,7 +158,7 @@ Represents a session.
 |  **server** 	|                                                          String                                                         	|             Server             	|
 | **players** 	|                                                       List<String>                                                      	| UUIDs of players on the server 	|
 
-### Guild
+#### Guild
 
 Represents a guild.
 
@@ -167,7 +175,7 @@ Represents a guild.
 |  **legacyRanking** 	|      Int      	|        Legacy rank        	|
 |   **description**  	|     String    	|        Description        	|
 
-#### Member
+##### Member
 
 Represents a guild member.
 
@@ -175,6 +183,10 @@ Represents a guild member.
 |:--------:	|:------:	|:-----------:	|
 | **uuid** 	| String 	|     UUID    	|
 | **rank** 	| String 	|     Rank    	|
+
+#### Key
+
+Soon...
 
 ## License
 
