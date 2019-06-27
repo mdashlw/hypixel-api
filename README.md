@@ -80,7 +80,7 @@ dependencies {
 To use Hypixel Public API you must provide an API key.
 You can get your key by doing `/api new` on Hypixel.
 
-You can provide many API keys, it will use random key.
+You can provide more than one API key, every request will use a random one.
 
 ```kotlin
 HypixelApi.setup(listOf("key1", "key2"))
