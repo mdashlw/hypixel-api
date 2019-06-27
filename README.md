@@ -1,5 +1,5 @@
 [ ![Download](https://api.bintray.com/packages/mdashlw/maven/hypixel-api/images/download.svg) ](https://bintray.com/mdashlw/maven/hypixel-api/_latestVersion)
-[![pipeline status](https://gitlab.com/mdashlw/hypixel-api/badges/master/pipeline.svg)](https://gitlab.com/mdashlw/hypixel-api/commits/master)
+[![CircleCI](https://circleci.com/gh/mdashlw/hypixel-api.svg?style=svg)](https://circleci.com/gh/mdashlw/hypixel-api)
 
 # Hypixel API
 
@@ -152,41 +152,48 @@ Represents a Hypixel player.
 
 Represents a session.
 
-|   Property  	|                                                           Type                                                          	|           Description          	|
-|:-----------:	|:-----------------------------------------------------------------------------------------------------------------------:	|:------------------------------:	|
-|   **game**  	| [GameType](https://gitlab.com/mdashlw/hypixel-api/blob/master/src/main/kotlin/ru/mdashlw/hypixel/api/enums/GameType.kt) 	|              Game              	|
-|  **server** 	|                                                          String                                                         	|             Server             	|
-| **players** 	|                                                       List<String>                                                      	| UUIDs of players on the server 	|
+|   Property  |                                                           Type                                                          |           Description          |
+|:-----------:|:-----------------------------------------------------------------------------------------------------------------------:|:------------------------------:|
+|   **game**  | [GameType](https://github.com/mdashlw/hypixel-api/blob/master/src/main/kotlin/ru/mdashlw/hypixel/api/enums/GameType.kt) |              Game              |
+|  **server** |                                                          String                                                         |             Server             |
+| **players** |                                                       List<String>                                                      | UUIDs of players on the server |
 
 #### Guild
 
 Represents a guild.
 
-|      Property      	|      Type     	|        Description        	|
-|:------------------:	|:-------------:	|:-------------------------:	|
-|      **name**      	|     String    	|            Name           	|
-|      **coins**     	|      Int      	|           Coins           	|
-|     **members**    	|  List<Member> 	|          Members          	|
-|    **joinable**    	|    Boolean    	|     Is guild joinable?    	|
-| **publiclyListed** 	|    Boolean    	| Is guild publicly listed? 	|
-|       **tag**      	|    String?    	|            Tag            	|
-|  **achievements**  	| Map<String, Int>? |        Achievements       	|
-|       **exp**      	|      Long     	|            Exp            	|
-|  **legacyRanking** 	|      Int      	|        Legacy rank        	|
-|   **description**  	|     String    	|        Description        	|
+|      Property      |        Type       |        Description        |
+|:------------------:|:-----------------:|:-------------------------:|
+|      **name**      |       String      |            Name           |
+|      **coins**     |        Int        |           Coins           |
+|     **members**    |    List<Member>   |          Members          |
+|    **joinable**    |      Boolean      |     Is guild joinable?    |
+| **publiclyListed** |      Boolean      | Is guild publicly listed? |
+|       **tag**      |      String?      |            Tag            |
+|  **achievements**  | Map<String, Int>? |        Achievements       |
+|       **exp**      |        Long       |            Exp            |
+|  **legacyRanking** |        Int        |        Legacy rank        |
+|   **description**  |       String      |        Description        |
 
 ##### Member
 
 Represents a guild member.
 
-| Property 	|  Type  	| Description 	|
-|:--------:	|:------:	|:-----------:	|
-| **uuid** 	| String 	|     UUID    	|
-| **rank** 	| String 	|     Rank    	|
+| Property |  Type  |  Description  |
+|:--------:|:------:|:-------------:|
+| **uuid** | String | Undashed UUID |
+| **rank** | String |      Rank     |
 
 #### Key
 
-Soon...
+Represents an api key.
+
+|       Property       |  Type  |       Description      |
+|:--------------------:|:------:|:----------------------:|
+|     **ownerUuid**    | String |   Undashed owner UUID  |
+|        **key**       | String |           Key          |
+|   **totalQueries**   |   Int  |      Total queries     |
+| **queriesInPastMin** |  Int?  | Queries in past minute |
 
 ## License
 
