@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import okhttp3.OkHttpClient
-import okhttp3.Response
+import okhttp3.Request
 import ru.mdashlw.hypixel.api.entities.Guild
 import ru.mdashlw.hypixel.api.entities.Key
 import ru.mdashlw.hypixel.api.entities.Session
@@ -16,7 +16,6 @@ import ru.mdashlw.hypixel.api.reply.impl.GuildReply
 import ru.mdashlw.hypixel.api.reply.impl.KeyReply
 import ru.mdashlw.hypixel.api.reply.impl.PlayerReply
 import ru.mdashlw.hypixel.api.reply.impl.SessionReply
-import ru.mdashlw.hypixel.api.util.newCall
 import kotlin.reflect.KClass
 
 object HypixelApi {
@@ -68,9 +67,19 @@ object HypixelApi {
             url += "&$key=$value"
         }
 
-        val response = okHttpClient.newCall(url).takeIf(Response::isSuccessful) ?: return null
-        val body = response.body() ?: return null
-        val reply = body.use { jackson.readValue(body.string(), replyClass.java) }
+        val request = Request.Builder()
+            .url(url)
+            .build()
+        val response = okHttpClient.newCall(request).execute()
+        val reply = response.use {
+            if (!it.isSuccessful) {
+                return null
+            }
+
+            val body = response.body() ?: return null
+
+            jackson.readValue(body.string(), replyClass.java)
+        }
 
         reply.run {
             if (throttle) {
