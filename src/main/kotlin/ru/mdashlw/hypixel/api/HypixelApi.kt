@@ -71,15 +71,13 @@ object HypixelApi {
             .url(url)
             .build()
         val response = okHttpClient.newCall(request).execute()
-        val reply = response.use {
-            if (!it.isSuccessful) {
-                return null
-            }
+        val body = response.body()?.string() ?: return null
 
-            val body = response.body() ?: return null
-
-            jackson.readValue(body.string(), replyClass.java)
+        if (!response.isSuccessful) {
+            return null
         }
+
+        val reply = jackson.readValue(body, replyClass.java)
 
         reply.run {
             if (throttle) {
