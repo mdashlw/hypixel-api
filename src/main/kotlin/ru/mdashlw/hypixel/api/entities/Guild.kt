@@ -11,6 +11,7 @@ data class Guild(
     val joinable: Boolean = false,
     val publiclyListed: Boolean = false,
     val tag: String? = null,
+    val tagColor: String = "GRAY",
     val achievements: Map<String, Int>? = null,
     val exp: Long,
     val legacyRanking: Int = 0,
