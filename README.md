@@ -3,7 +3,7 @@
 
 # Hypixel API
 
-Kotlin Hypixel API wrapper
+Java Hypixel API wrapper.
 
 ## Importing
 
@@ -73,127 +73,55 @@ dependencies {
 
 ## Usage
 
-### Setup
-
-#### API Key
+### Getting started
 
 To use Hypixel Public API you must provide an API key.
-You can get your key by doing `/api new` on Hypixel.
+You can obtain a key by doing `/api new` on the server.
 
-You can provide more than one API key, every request will use a random one.
-
-```kotlin
-HypixelApi.setup(listOf("key1", "key2"))
-```
-
-#### Output Mode
-
-Output mode is used in formatting display names. *(Player/Guild/etc)*
-
-The default is **Raw**.
-
-* Raw `(RAW)` — just plain text, without any formatting.
-* Markdown `(MARKDOWN)` — with markdown formatting.
-* Colorized `(COLORIZED)` — with minecraft color codes.
-
-```kotlin
-HypixelApi.setup(listOf("key1", "key2"), HypixelApi.OutputMode.MARKDOWN)
+```java
+HypixelAPI api = new HypixelAPI("API_KEY");
+HypixelAPI api = new HypixelAPI("API_KEY", new OkHttpClient());
+HypixelAPI api = new HypixelAPI("API_KEY", new OkHttpClient(), new ObjectMapper());
 ```
 
 ### Methods
 
-All return types are nullable.
-
-UUIDs can be dashed and undashed.
+* All methods return **CompletableFuture**.
+* All UUIDs can be both dashed and undashed.
 
 #### Getting information about a player
 
-Returns: **Player**.
+Returns: **HypixelPlayer** (nullable).
 
-```kotlin
-HypixelApi.retrievePlayerByUuid("uuid")
-HypixelApi.retrievePlayerByName("nickname")
+```java
+HypixelAPI#retrievePlayerByUuid("uuid");
+HypixelAPI#retrievePlayerByName("nickname");
 ```
 
-#### Getting information about a player's session
+#### Getting information about a session
 
-Returns: **Session**.
+Returns: **Session** (nullable).
 
-```kotlin
-HypixelApi.retrieveSessionByUuid("uuid")
+```java
+HypixelAPI#retrieveSessionByUuid("uuid");
 ```
 
-#### Getting information about a guild by name/player
+#### Getting information about a guild
 
-Returns: **Guild**.
+Returns: **Guild** (nullable).
 
-```kotlin
-HypixelApi.retrieveGuildByName("guild_name")
-HypixelApi.retrieveGuildByPlayer("player_uuid")
+```java
+HypixelAPI#retrieveGuildByName("guild_name");
+HypixelAPI#retrieveGuildByPlayer("player_uuid");
 ```
 
-#### Getting information about a Hypixel API key
+#### Getting information about a set API key
 
-Returns: **Key**.
+Returns: **Key** (never-null).
 
-```kotlin
-HypixelApi.retrieveKey("key")
+```java
+HypixelAPI#retrieveKey();
 ```
-
-### Entities
-
-#### Player
-
-Represents a Hypixel player.
-
-*Documentation is coming soon.*
-
-#### Session
-
-Represents a session.
-
-|   Property  |                                                           Type                                                          |           Description          |
-|:-----------:|:-----------------------------------------------------------------------------------------------------------------------:|:------------------------------:|
-|   **game**  | [GameType](https://github.com/mdashlw/hypixel-api/blob/master/src/main/kotlin/ru/mdashlw/hypixel/api/enums/GameType.kt) |              Game              |
-|  **server** |                                                          String                                                         |             Server             |
-| **players** |                                                       List<String>                                                      | UUIDs of players on the server |
-
-#### Guild
-
-Represents a guild.
-
-|      Property      |        Type       |        Description        |
-|:------------------:|:-----------------:|:-------------------------:|
-|      **name**      |       String      |            Name           |
-|      **coins**     |        Int        |           Coins           |
-|     **members**    |    List<Member>   |          Members          |
-|    **joinable**    |      Boolean      |     Is guild joinable?    |
-| **publiclyListed** |      Boolean      | Is guild publicly listed? |
-|       **tag**      |      String?      |            Tag            |
-|  **achievements**  | Map<String, Int>? |        Achievements       |
-|       **exp**      |        Long       |            Exp            |
-|  **legacyRanking** |        Int        |        Legacy rank        |
-|   **description**  |       String      |        Description        |
-
-##### Member
-
-Represents a guild member.
-
-| Property |  Type  |  Description  |
-|:--------:|:------:|:-------------:|
-| **uuid** | String | Undashed UUID |
-| **rank** | String |      Rank     |
-
-#### Key
-
-Represents an api key.
-
-|       Property       |  Type  |       Description      |
-|:--------------------:|:------:|:----------------------:|
-|     **ownerUuid**    | String |   Undashed owner UUID  |
-|        **key**       | String |           Key          |
-|   **totalQueries**   |   Int  |      Total queries     |
-| **queriesInPastMin** |  Int?  | Queries in past minute |
 
 ## License
 

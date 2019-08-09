@@ -6,7 +6,7 @@
 
     <groupId>ru.mdashlw.hypixel</groupId>
     <artifactId>hypixel-api</artifactId>
-    <version>5.8.2</version>
+    <version>6.0.0</version>
     <packaging>jar</packaging>
 
     <name>ru.mdashlw.hypixel hypixel-api</name>
@@ -52,16 +52,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.3.41</kotlin.version>
-        <kotlin.code.style>official</kotlin.code.style>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
@@ -70,17 +63,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.9.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-kotlin</artifactId>
-            <version>2.9.9</version>
-        </dependency>
-        <dependency>
-            <groupId>ru.mdashlw.util</groupId>
-            <artifactId>common-util</artifactId>
-            <version>2.1.0</version>
+            <version>2.9.9.2</version>
         </dependency>
     </dependencies>
 
@@ -100,39 +83,27 @@
     </pluginRepositories>
 
     <build>
-        <sourceDirectory>src/main/kotlin</sourceDirectory>
-
         <plugins>
             <plugin>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
-                    <jvmTarget>1.8</jvmTarget>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.2</version>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
-                        <id>javadoc-jar</id>
+                        <id>attach-javadocs</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
-                        <configuration>
-                            <classifier>javadoc</classifier>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -145,7 +116,7 @@
                         <id>attach-sources</id>
                         <phase>verify</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
