@@ -13,7 +13,7 @@ public class DynamicObjectNode extends ObjectNode {
         setAll(node);
     }
 
-    protected <T> T get(String field, T fallback, Function<JsonNode, T> adapter) {
+    public <T> T get(String field, T fallback, Function<JsonNode, T> adapter) {
         JsonNode node = get(field);
 
         if (node == null || node.isNull()) {
@@ -23,7 +23,7 @@ public class DynamicObjectNode extends ObjectNode {
         return adapter.apply(node);
     }
 
-    protected <T> List<T> getList(String field, List<T> fallback, Function<JsonNode, T> adapter) {
+    public <T> List<T> getList(String field, List<T> fallback, Function<JsonNode, T> adapter) {
         JsonNode arrayNode = get(field);
 
         if (arrayNode == null || !arrayNode.isArray()) {
@@ -42,7 +42,7 @@ public class DynamicObjectNode extends ObjectNode {
         return objects;
     }
 
-    protected <K, V> Map<K, V> getMap(String field, Map<K, V> fallback, Function<String, K> keyAdapter, Function<JsonNode, V> valueAdapter) {
+    public <K, V> Map<K, V> getMap(String field, Map<K, V> fallback, Function<String, K> keyAdapter, Function<JsonNode, V> valueAdapter) {
         JsonNode objectNode = get(field);
 
         if (objectNode == null || !objectNode.isObject()) {

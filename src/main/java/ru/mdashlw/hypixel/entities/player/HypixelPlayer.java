@@ -152,6 +152,26 @@ public class HypixelPlayer extends DynamicObjectNode {
     }
 
     /**
+     * MVP+ plus color.
+     * Example: RED, BLACK.
+     *
+     * @return MVP+ plus color.
+     */
+    public String getRankPlusColor() {
+        return get("rankPlusColor", "RED", JsonNode::asText);
+    }
+
+    /**
+     * MVP++ rank color.
+     * Possible values: GOLD, AQUA.
+     *
+     * @return MVP++ rank color.
+     */
+    public String getMonthlyRankColor() {
+        return get("monthlyRankColor", "GOLD", JsonNode::asText);
+    }
+
+    /**
      * Social media.
      * Null if not present.
      *
