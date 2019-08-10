@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>ru.mdashlw.hypixel hypixel-api</name>
-    <description>Hypixel API wrapper</description>
+    <description>Java Hypixel API wrapper</description>
     <url>https://github.com/mdashlw/hypixel-api</url>
     <inceptionYear>2019</inceptionYear>
     <licenses>

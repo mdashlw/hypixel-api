@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/linux,maven,kotlin,windows,intellij
-# Edit at https://www.gitignore.io/?templates=linux,maven,kotlin,windows,intellij
+# Created by https://www.gitignore.io/api/java,linux,maven,windows,intellij
+# Edit at https://www.gitignore.io/?templates=java,linux,maven,windows,intellij
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
@@ -36,6 +36,8 @@
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
+# *.iml
+# *.ipr
 
 # CMake
 cmake-build-*/
@@ -70,9 +72,6 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-# JetBrains templates
-**___jb_tmp___
-
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
@@ -84,7 +83,7 @@ fabric.properties
 # Sonarlint plugin
 .idea/sonarlint
 
-### Kotlin ###
+### Java ###
 # Compiled class file
 *.class
 
@@ -139,6 +138,7 @@ buildNumber.properties
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
+Thumbs.db:encryptable
 ehthumbs.db
 ehthumbs_vista.db
 
@@ -161,4 +161,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/linux,maven,kotlin,windows,intellij
+# End of https://www.gitignore.io/api/java,linux,maven,windows,intellij
