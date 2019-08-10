@@ -33,9 +33,9 @@ public class Guild {
     private Map<GameType, Integer> guildExpByGameType;
 
     /**
-     * Object id.
+     * Mongo object id.
      *
-     * @return Object id.
+     * @return Mongo object id.
      */
     public String getId() {
         return _id;

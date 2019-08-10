@@ -3,6 +3,7 @@ package ru.mdashlw.hypixel;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
+import ru.mdashlw.hypixel.entities.Friendship;
 import ru.mdashlw.hypixel.entities.Guild;
 import ru.mdashlw.hypixel.entities.Key;
 import ru.mdashlw.hypixel.entities.Session;
@@ -10,12 +11,10 @@ import ru.mdashlw.hypixel.entities.player.HypixelPlayer;
 import ru.mdashlw.hypixel.exceptions.HypixelApiException;
 import ru.mdashlw.hypixel.exceptions.HypixelApiThrottleException;
 import ru.mdashlw.hypixel.reply.Reply;
-import ru.mdashlw.hypixel.reply.impl.GuildReply;
-import ru.mdashlw.hypixel.reply.impl.KeyReply;
-import ru.mdashlw.hypixel.reply.impl.PlayerReply;
-import ru.mdashlw.hypixel.reply.impl.SessionReply;
+import ru.mdashlw.hypixel.reply.impl.*;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -126,6 +125,16 @@ public class HypixelAPI {
         return retrieve(KeyReply.class, "key");
     }
 
+    /**
+     * Retrieve friends of a player.
+     *
+     * @param uuid Dashed/undashed player UUID.
+     * @return Completable future of List of Friendship.
+     */
+    public CompletableFuture<List<Friendship>> retrieveFriendsByUuid(String uuid) {
+        return retrieve(FriendsReply.class, "friends", "uuid", uuid);
+    }
+
     private <T> CompletableFuture<T> retrieve(Class<? extends Reply<T>> clazz, String endpoint, String... params) {
         if (params.length % 2 != 0) {
             throw new IllegalArgumentException("Need both key and value for parameters");
@@ -170,7 +179,7 @@ public class HypixelAPI {
                 // and we will get a json parse exception.
                 if (!response.isSuccessful()) {
                     body.close();
-                    future.complete(null);
+                    future.completeExceptionally(new IllegalStateException("Response was not successful"));
                     return;
                 }
 

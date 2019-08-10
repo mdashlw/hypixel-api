@@ -123,6 +123,14 @@ Returns: **Key** (never-null).
 HypixelAPI#retrieveKey();
 ```
 
+#### Getting friends of a player
+
+Returns: **List\<Friendship>** (never-null).
+
+```java
+HypixelAPI#retrieveFriendsByUuid("uuid");
+```
+
 ## License
 
 The project is licensed under the **[MIT license](https://choosealicense.com/licenses/mit/)**.
