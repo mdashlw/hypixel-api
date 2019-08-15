@@ -213,4 +213,13 @@ public class HypixelAPI {
     public String getKey() {
         return key;
     }
+
+    /**
+     * Change the API key.
+     *
+     * @param key New API key.
+     */
+    public void setKey(String key) {
+        this.key = key;
+    }
 }
