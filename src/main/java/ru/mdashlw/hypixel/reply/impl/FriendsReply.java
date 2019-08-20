@@ -6,12 +6,12 @@ import ru.mdashlw.hypixel.reply.Reply;
 
 import java.util.List;
 
-public class FriendsReply extends Reply<List<Friendship>> {
+public final class FriendsReply extends Reply<List<Friendship>> {
     @JsonProperty
     private List<Friendship> records;
 
     @Override
     public List<Friendship> getValue() {
-        return records;
+        return this.records;
     }
 }

@@ -5,7 +5,7 @@ package ru.mdashlw.hypixel.util;
  *
  * @author Hypixel Network
  */
-public class LevelingUtil {
+public final class LevelingUtil {
     public static final double BASE = 10_000;
     public static final double GROWTH = 2_500;
 
@@ -33,7 +33,7 @@ public class LevelingUtil {
      * @param exp Total experience gathered by the player.
      * @return Absolute level of player (Smallest value is 1.0)
      */
-    public static double getLevel(double exp) {
+    public static double getLevel(final double exp) {
         return exp < 0 ? 1 : Math.floor(1 + REVERSE_PQ_PREFIX + Math.sqrt(REVERSE_CONST + GROWTH_DIVIDES_2 * exp));
     }
 
@@ -53,7 +53,7 @@ public class LevelingUtil {
      * @param exp Total experience gathered by the player.
      * @return Exact level of player (Smallest value is 1.0)
      */
-    public static double getExactLevel(double exp) {
+    public static double getExactLevel(final double exp) {
         return getLevel(exp) + getPercentageToNextLevel(exp);
     }
 
@@ -75,7 +75,7 @@ public class LevelingUtil {
      * @param level Level from which you want to get the next level with the same level progress
      * @return Experience to reach the next level with same progress
      */
-    public static double getExpFromLevelToNext(double level) {
+    public static double getExpFromLevelToNext(final double level) {
         return level < 1 ? BASE : GROWTH * (level - 1) + BASE;
     }
 
@@ -97,8 +97,9 @@ public class LevelingUtil {
      * @param level The level and progress of the level to reach
      * @return The experience required to reach that level and progress
      */
-    public static double getTotalExpToLevel(double level) {
-        double lv = Math.floor(level), x0 = getTotalExpToFullLevel(lv);
+    public static double getTotalExpToLevel(final double level) {
+        final double lv = Math.floor(level);
+        final double x0 = getTotalExpToFullLevel(lv);
         if (level == lv) return x0;
         return (getTotalExpToFullLevel(lv + 1) - x0) * (level % 1) + x0;
     }
@@ -110,7 +111,7 @@ public class LevelingUtil {
      * @param level Level to receive the amount of experience to
      * @return Experience to reach the given level
      */
-    public static double getTotalExpToFullLevel(double level) {
+    public static double getTotalExpToFullLevel(final double level) {
         return (HALF_GROWTH * (level - 2) + BASE) * (level - 1);
     }
 
@@ -128,8 +129,9 @@ public class LevelingUtil {
      * @param exp Current experience gathered by the player
      * @return Current progress to the next level
      */
-    public static double getPercentageToNextLevel(double exp) {
-        double lv = getLevel(exp), x0 = getTotalExpToLevel(lv);
+    public static double getPercentageToNextLevel(final double exp) {
+        final double lv = getLevel(exp);
+        final double x0 = getTotalExpToLevel(lv);
         return (exp - x0) / (getTotalExpToLevel(lv + 1) - x0);
     }
 }

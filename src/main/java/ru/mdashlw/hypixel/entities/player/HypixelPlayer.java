@@ -16,8 +16,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Hypixel player.
  */
-public class HypixelPlayer extends DynamicObjectNode {
-    public HypixelPlayer(ObjectNode node) {
+public final class HypixelPlayer extends DynamicObjectNode {
+    public HypixelPlayer(final ObjectNode node) {
         super(node);
     }
 
@@ -28,7 +28,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Undashed UUID.
      */
     public String getUuid() {
-        return get("uuid", null, JsonNode::asText);
+        return this.get("uuid", null, JsonNode::asText);
     }
 
     /**
@@ -38,7 +38,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Display name.
      */
     public String getDisplayname() {
-        return get("displayname", null, JsonNode::asText);
+        return this.get("displayname", null, JsonNode::asText);
     }
 
     /**
@@ -48,7 +48,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Custom prefix.
      */
     public String getPrefix() {
-        return get("prefix", null, JsonNode::asText);
+        return this.get("prefix", null, JsonNode::asText);
     }
 
     /**
@@ -58,16 +58,16 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Rank.
      */
     public Rank getRank() {
-        String rank = get("rank", null, JsonNode::asText);
-        String monthlyPackageRank = get("monthlyPackageRank", null, JsonNode::asText);
-        String newPackageRank = get("newPackageRank", null, JsonNode::asText);
-        String packageRank = get("packageRank", null, JsonNode::asText);
+        final String rank = this.get("rank", null, JsonNode::asText);
+        final String monthlyPackageRank = this.get("monthlyPackageRank", null, JsonNode::asText);
+        final String newPackageRank = this.get("newPackageRank", null, JsonNode::asText);
+        final String packageRank = this.get("packageRank", null, JsonNode::asText);
 
-        String value;
+        final String value;
 
-        if (rank != null && !rank.equals("NORMAL")) {
+        if (rank != null && !"NORMAL".equals(rank)) {
             value = rank;
-        } else if (monthlyPackageRank != null && !monthlyPackageRank.equals("NONE")) {
+        } else if (monthlyPackageRank != null && !"NONE".equals(monthlyPackageRank)) {
             value = monthlyPackageRank;
         } else if (newPackageRank != null) {
             value = newPackageRank;
@@ -87,7 +87,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @see LevelingUtil
      */
     public long getNetworkExp() {
-        return get("networkExp", 0L, JsonNode::asLong);
+        return this.get("networkExp", 0L, JsonNode::asLong);
     }
 
     /**
@@ -96,7 +96,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Karma.
      */
     public long getKarma() {
-        return get("karma", 0L, JsonNode::asLong);
+        return this.get("karma", 0L, JsonNode::asLong);
     }
 
     /**
@@ -105,7 +105,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Achievement points.
      */
     public long getAchievementPoints() {
-        return get("achievementPoints", 0L, JsonNode::asLong);
+        return this.get("achievementPoints", 0L, JsonNode::asLong);
     }
 
     /**
@@ -115,7 +115,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return First login on the network.
      */
     public long getFirstLogin() {
-        return get("firstLogin", 0L, JsonNode::asLong);
+        return this.get("firstLogin", 0L, JsonNode::asLong);
     }
 
     /**
@@ -125,7 +125,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Last login on the network.
      */
     public long getLastLogin() {
-        return get("lastLogin", 0L, JsonNode::asLong);
+        return this.get("lastLogin", 0L, JsonNode::asLong);
     }
 
     /**
@@ -135,7 +135,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Last logout from the network.
      */
     public long getLastLogout() {
-        return get("lastLogout", 0L, JsonNode::asLong);
+        return this.get("lastLogout", 0L, JsonNode::asLong);
     }
 
     /**
@@ -148,7 +148,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Known aliases.
      */
     public List<String> getKnownAliases() {
-        return getList("knownAliases", Collections.emptyList(), JsonNode::asText);
+        return this.getList("knownAliases", Collections.emptyList(), JsonNode::asText);
     }
 
     /**
@@ -158,7 +158,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return MVP+ plus color.
      */
     public String getRankPlusColor() {
-        return get("rankPlusColor", "RED", JsonNode::asText);
+        return this.get("rankPlusColor", "RED", JsonNode::asText);
     }
 
     /**
@@ -168,7 +168,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return MVP++ rank color.
      */
     public String getMonthlyRankColor() {
-        return get("monthlyRankColor", "GOLD", JsonNode::asText);
+        return this.get("monthlyRankColor", "GOLD", JsonNode::asText);
     }
 
     /**
@@ -178,7 +178,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Social media.
      */
     public SocialMedia getSocialMedia() {
-        return get("socialMedia", null, node -> new SocialMedia((ObjectNode) node));
+        return this.get("socialMedia", null, node -> new SocialMedia((ObjectNode) node));
     }
 
     /**
@@ -188,7 +188,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Vanity meta.
      */
     public VanityMeta getVanityMeta() {
-        return get("vainityMeta", null, node -> new VanityMeta((ObjectNode) node));
+        return this.get("vainityMeta", null, node -> new VanityMeta((ObjectNode) node));
     }
 
     /**
@@ -198,7 +198,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Stats.
      */
     public Stats getStats() {
-        return get("stats", null, node -> new Stats((ObjectNode) node));
+        return this.get("stats", null, node -> new Stats((ObjectNode) node));
     }
 
     /**
@@ -208,7 +208,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Is player a staff member.
      */
     public boolean isStaff() {
-        return !get("rank", "NORMAL", JsonNode::asText).equals("NORMAL");
+        return !"NORMAL".equals(this.get("rank", "NORMAL", JsonNode::asText));
     }
 
     /**
@@ -219,8 +219,8 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @return Is player currently online on the network.
      */
     public boolean isOnline() {
-        long lastLogin = getLastLogin();
-        long lastLogout = getLastLogout();
+        final long lastLogin = this.getLastLogin();
+        final long lastLogout = this.getLastLogout();
 
         return lastLogin != 0L && lastLogout != 0L && lastLogin > lastLogout;
     }
@@ -231,8 +231,8 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @param api Hypixel API.
      * @return Completable future of Guild.
      */
-    public CompletableFuture<Guild> retrieveGuild(HypixelAPI api) {
-        return api.retrieveGuildByPlayer(getUuid());
+    public CompletableFuture<Guild> retrieveGuild(final HypixelAPI api) {
+        return api.retrieveGuildByPlayer(this.getUuid());
     }
 
     /**
@@ -245,7 +245,7 @@ public class HypixelPlayer extends DynamicObjectNode {
      * @param api Hypixel API.
      * @return Completable future of Session.
      */
-    public CompletableFuture<Session> retrieveSession(HypixelAPI api) {
-        return api.retrieveSessionByUuid(getUuid());
+    public CompletableFuture<Session> retrieveSession(final HypixelAPI api) {
+        return api.retrieveSessionByUuid(this.getUuid());
     }
 }

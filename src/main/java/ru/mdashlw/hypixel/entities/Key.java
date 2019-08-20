@@ -3,7 +3,7 @@ package ru.mdashlw.hypixel.entities;
 /**
  * Network API key.
  */
-public class Key {
+public final class Key {
     private String ownerUuid;
     private String key;
     private int totalQueries;
@@ -15,7 +15,7 @@ public class Key {
      * @return Undashed owner UUID.
      */
     public String getOwnerUuid() {
-        return ownerUuid;
+        return this.ownerUuid;
     }
 
     /**
@@ -24,7 +24,7 @@ public class Key {
      * @return Key with dashes.
      */
     public String getKey() {
-        return key;
+        return this.key;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Key {
      * @return Total queries.
      */
     public int getTotalQueries() {
-        return totalQueries;
+        return this.totalQueries;
     }
 
     /**
@@ -42,6 +42,6 @@ public class Key {
      * @return Queries in the past minute.
      */
     public int getQueriesInPastMin() {
-        return queriesInPastMin;
+        return this.queriesInPastMin;
     }
 }

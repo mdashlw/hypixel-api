@@ -10,7 +10,7 @@ import java.util.Map;
  * Guild on the network.
  */
 // TODO Add missing documentation.
-public class Guild {
+public final class Guild {
     private String _id;
     private int coins;
     private int coinsEver;
@@ -38,7 +38,7 @@ public class Guild {
      * @return Mongo object id.
      */
     public String getId() {
-        return _id;
+        return this._id;
     }
 
     /**
@@ -47,11 +47,11 @@ public class Guild {
      * @return Coins.
      */
     public int getCoins() {
-        return coins;
+        return this.coins;
     }
 
     public int getCoinsEver() {
-        return coinsEver;
+        return this.coinsEver;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Guild {
      * @return Time created.
      */
     public long getCreated() {
-        return created;
+        return this.created;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Guild {
      * @return Members.
      */
     public List<Member> getMembers() {
-        return members;
+        return this.members;
     }
 
     /**
@@ -78,7 +78,7 @@ public class Guild {
      * @return Name.
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -88,7 +88,7 @@ public class Guild {
      * @return Is this guild joinable.
      */
     public boolean isJoinable() {
-        return joinable;
+        return this.joinable;
     }
 
     /**
@@ -97,7 +97,7 @@ public class Guild {
      * @return Custom tag.
      */
     public String getTag() {
-        return tag;
+        return this.tag;
     }
 
     /**
@@ -106,7 +106,7 @@ public class Guild {
      * @return Obtained achievements stats.
      */
     public Map<Achievement, Integer> getAchievements() {
-        return achievements;
+        return this.achievements;
     }
 
     /**
@@ -116,7 +116,7 @@ public class Guild {
      * @see GuildLevelingUtil
      */
     public long getExp() {
-        return exp;
+        return this.exp;
     }
 
     /**
@@ -125,7 +125,7 @@ public class Guild {
      * @return Rank in the legacy leaderboard.
      */
     public int getLegacyRanking() {
-        return legacyRanking;
+        return this.legacyRanking;
     }
 
     /**
@@ -135,7 +135,7 @@ public class Guild {
      * @return Tag color.
      */
     public String getTagColor() {
-        return tagColor;
+        return this.tagColor;
     }
 
     /**
@@ -144,7 +144,7 @@ public class Guild {
      * @return Ranks.
      */
     public List<Rank> getRanks() {
-        return ranks;
+        return this.ranks;
     }
 
     /**
@@ -153,7 +153,7 @@ public class Guild {
      * @return Description.
      */
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     /**
@@ -162,7 +162,7 @@ public class Guild {
      * @return Preferred games.
      */
     public List<GameType> getPreferredGames() {
-        return preferredGames;
+        return this.preferredGames;
     }
 
     /**
@@ -172,11 +172,11 @@ public class Guild {
      * @return Is this guild publicly listed.
      */
     public boolean isPubliclyListed() {
-        return publiclyListed;
+        return this.publiclyListed;
     }
 
     public int getChatMute() {
-        return chatMute;
+        return this.chatMute;
     }
 
     /**
@@ -185,11 +185,11 @@ public class Guild {
      * @return Lower case name.
      */
     public String getNameLower() {
-        return nameLower;
+        return this.nameLower;
     }
 
     public Map<GameType, Integer> getGuildExpByGameType() {
-        return guildExpByGameType;
+        return this.guildExpByGameType;
     }
 
     /**
@@ -200,9 +200,9 @@ public class Guild {
         EXPERIENCE_KINGS("Experience Kings"),
         ONLINE_PLAYERS("Online Players");
 
-        private String localizedName;
+        private final String localizedName;
 
-        Achievement(String localizedName) {
+        Achievement(final String localizedName) {
             this.localizedName = localizedName;
         }
 
@@ -212,14 +212,14 @@ public class Guild {
          * @return Localized name.
          */
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
     }
 
     /**
      * Guild member.
      */
-    public static class Member {
+    public static final class Member {
         private String uuid;
         private String rank;
         private long joined;
@@ -231,7 +231,7 @@ public class Guild {
          * @return Undashed UUID.
          */
         public String getUuid() {
-            return uuid;
+            return this.uuid;
         }
 
         /**
@@ -240,7 +240,7 @@ public class Guild {
          * @return Rank in the guild.
          */
         public String getRank() {
-            return rank;
+            return this.rank;
         }
 
         /**
@@ -249,18 +249,18 @@ public class Guild {
          * @return Time joined.
          */
         public long getJoined() {
-            return joined;
+            return this.joined;
         }
 
         public int getQuestParticipation() {
-            return questParticipation;
+            return this.questParticipation;
         }
     }
 
     /**
      * Guild rank.
      */
-    public static class Rank {
+    public static final class Rank {
         private String name;
         @JsonProperty("default")
         private boolean _default;
@@ -274,15 +274,15 @@ public class Guild {
          * @return Rank name.
          */
         public String getName() {
-            return name;
+            return this.name;
         }
 
         public boolean isDefault() {
-            return _default;
+            return this._default;
         }
 
         public String getTag() {
-            return tag;
+            return this.tag;
         }
 
         /**
@@ -291,11 +291,11 @@ public class Guild {
          * @return Time created.
          */
         public long getCreated() {
-            return created;
+            return this.created;
         }
 
         public int getPriority() {
-            return priority;
+            return this.priority;
         }
     }
 }

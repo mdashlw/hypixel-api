@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Network session.
  */
-public class Session {
+public final class Session {
     private GameType gameType;
     private String server;
     private List<String> players;
@@ -16,7 +16,7 @@ public class Session {
      * @return Game type.
      */
     public GameType getGameType() {
-        return gameType;
+        return this.gameType;
     }
 
     /**
@@ -25,7 +25,7 @@ public class Session {
      * @return Game server.
      */
     public String getServer() {
-        return server;
+        return this.server;
     }
 
     /**
@@ -34,6 +34,6 @@ public class Session {
      * @return UUIDs of players currently in this session.
      */
     public List<String> getPlayers() {
-        return players;
+        return this.players;
     }
 }

@@ -3,7 +3,7 @@ package ru.mdashlw.hypixel.entities;
 /**
  * Network friendship.
  */
-public class Friendship {
+public final class Friendship {
     private String _id;
     private String uuidSender;
     private String uuidReceiver;
@@ -15,7 +15,7 @@ public class Friendship {
      * @return Mongo object id.
      */
     public String getId() {
-        return _id;
+        return this._id;
     }
 
     /**
@@ -23,8 +23,8 @@ public class Friendship {
      *
      * @return Undashed UUID of the friend request sender.
      */
-    public String getUuidSender() {
-        return uuidSender;
+    public String getSender() {
+        return this.uuidSender;
     }
 
     /**
@@ -32,8 +32,8 @@ public class Friendship {
      *
      * @return Undashed UUID of the friend request receiver.
      */
-    public String getUuidReceiver() {
-        return uuidReceiver;
+    public String getReceiver() {
+        return this.uuidReceiver;
     }
 
     /**
@@ -42,6 +42,6 @@ public class Friendship {
      * @return Time when this friendship started.
      */
     public long getStarted() {
-        return started;
+        return this.started;
     }
 }

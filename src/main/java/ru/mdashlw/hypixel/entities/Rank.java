@@ -15,9 +15,9 @@ public enum Rank {
     MODERATOR("Moderator"),
     ADMIN("Administrator");
 
-    private String localizedName;
+    private final String localizedName;
 
-    Rank(String localizedName) {
+    Rank(final String localizedName) {
         this.localizedName = localizedName;
     }
 
@@ -27,6 +27,6 @@ public enum Rank {
      * @return Localized name.
      */
     public String getLocalizedName() {
-        return localizedName;
+        return this.localizedName;
     }
 }

@@ -7,8 +7,8 @@ import ru.mdashlw.hypixel.util.DynamicObjectNode;
 /**
  * Stats on UHC Champions.
  */
-public class UHC extends DynamicObjectNode {
-    public UHC(ObjectNode node) {
+public final class UHC extends DynamicObjectNode {
+    public UHC(final ObjectNode node) {
         super(node);
     }
 
@@ -18,7 +18,7 @@ public class UHC extends DynamicObjectNode {
      * @return Score.
      */
     public int getScore() {
-        return get("score", 0, JsonNode::asInt);
+        return this.get("score", 0, JsonNode::asInt);
     }
 
     /**
@@ -27,7 +27,7 @@ public class UHC extends DynamicObjectNode {
      * @return Title.
      */
     public Title getTitle() {
-        return Title.getByScore(getScore());
+        return Title.getByScore(this.getScore());
     }
 
     /**
@@ -36,7 +36,7 @@ public class UHC extends DynamicObjectNode {
      * @return Wins on Solo mode.
      */
     public int getSoloWins() {
-        return get("wins_solo", 0, JsonNode::asInt);
+        return this.get("wins_solo", 0, JsonNode::asInt);
     }
 
     /**
@@ -45,7 +45,7 @@ public class UHC extends DynamicObjectNode {
      * @return Kills on Solo mode.
      */
     public int getSoloKills() {
-        return get("kills_solo", 0, JsonNode::asInt);
+        return this.get("kills_solo", 0, JsonNode::asInt);
     }
 
     /**
@@ -54,7 +54,7 @@ public class UHC extends DynamicObjectNode {
      * @return Deaths on Solo mode.
      */
     public int getSoloDeaths() {
-        return get("deaths_solo", 0, JsonNode::asInt);
+        return this.get("deaths_solo", 0, JsonNode::asInt);
     }
 
     /**
@@ -63,7 +63,7 @@ public class UHC extends DynamicObjectNode {
      * @return Heads eaten on Solo mode.
      */
     public int getSoloHeadsEaten() {
-        return get("heads_eaten_solo", 0, JsonNode::asInt);
+        return this.get("heads_eaten_solo", 0, JsonNode::asInt);
     }
 
     /**
@@ -72,7 +72,7 @@ public class UHC extends DynamicObjectNode {
      * @return Wins on Team mode.
      */
     public int getTeamWins() {
-        return get("wins", 0, JsonNode::asInt);
+        return this.get("wins", 0, JsonNode::asInt);
     }
 
     /**
@@ -81,7 +81,7 @@ public class UHC extends DynamicObjectNode {
      * @return Kills on Team mode.
      */
     public int getTeamKills() {
-        return get("kills", 0, JsonNode::asInt);
+        return this.get("kills", 0, JsonNode::asInt);
     }
 
     /**
@@ -90,7 +90,7 @@ public class UHC extends DynamicObjectNode {
      * @return Deaths on Team mode.
      */
     public int getTeamDeaths() {
-        return get("deaths", 0, JsonNode::asInt);
+        return this.get("deaths", 0, JsonNode::asInt);
     }
 
     /**
@@ -99,7 +99,7 @@ public class UHC extends DynamicObjectNode {
      * @return Heads eaten on Team mode.
      */
     public int getTeamHeadsEaten() {
-        return get("heads_eaten", 0, JsonNode::asInt);
+        return this.get("heads_eaten", 0, JsonNode::asInt);
     }
 
     /**
@@ -108,7 +108,7 @@ public class UHC extends DynamicObjectNode {
      * @return Currently equipped kit or null.
      */
     public Kit getEquippedKit() {
-        return get("equippedKit", null, node -> Kit.valueOf(node.asText()));
+        return this.get("equippedKit", null, node -> Kit.valueOf(node.asText()));
     }
 
     /**
@@ -131,11 +131,11 @@ public class UHC extends DynamicObjectNode {
         CHAMPION_PLUS_PLUS_PLUS_PLUS(14, 22210, "Champion"),
         HIGH_CHAMPION(15, 25210, "High Champion");
 
-        private int star;
-        private int scoreNeeded;
-        private String localizedName;
+        private final int star;
+        private final int scoreNeeded;
+        private final String localizedName;
 
-        Title(int star, int scoreNeeded, String localizedName) {
+        Title(final int star, final int scoreNeeded, final String localizedName) {
             this.star = star;
             this.scoreNeeded = scoreNeeded;
             this.localizedName = localizedName;
@@ -147,15 +147,15 @@ public class UHC extends DynamicObjectNode {
          * @param score Score, must be positive.
          * @return Title you get with score of {@code score}.
          */
-        public static Title getByScore(int score) {
+        public static Title getByScore(final int score) {
             if (score < 0) {
                 throw new IllegalStateException("Score must be positive.");
             }
 
-            Title[] values = values();
+            final Title[] values = values();
 
             for (int i = values.length - 1; i >= 0; i--) {
-                Title title = values[i];
+                final Title title = values[i];
 
                 if (title.scoreNeeded <= score) {
                     return title;
@@ -171,7 +171,7 @@ public class UHC extends DynamicObjectNode {
          * @return 1-indexed star.
          */
         public int getStar() {
-            return star;
+            return this.star;
         }
 
         /**
@@ -180,7 +180,7 @@ public class UHC extends DynamicObjectNode {
          * @return Minimum score needed to gain this title.
          */
         public int getScoreNeeded() {
-            return scoreNeeded;
+            return this.scoreNeeded;
         }
 
         /**
@@ -189,7 +189,7 @@ public class UHC extends DynamicObjectNode {
          * @return Localized name.
          */
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
     }
 
@@ -208,9 +208,9 @@ public class UHC extends DynamicObjectNode {
         LUNCH_BOX("Lunch Box"),
         LEATHER_ARMOR("Leather Armor");
 
-        private String localizedName;
+        private final String localizedName;
 
-        Kit(String localizedName) {
+        Kit(final String localizedName) {
             this.localizedName = localizedName;
         }
 
@@ -220,7 +220,7 @@ public class UHC extends DynamicObjectNode {
          * @return Localized name.
          */
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
     }
 }

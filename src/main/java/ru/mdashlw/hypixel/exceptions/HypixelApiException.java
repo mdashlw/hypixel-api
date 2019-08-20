@@ -1,10 +1,10 @@
 package ru.mdashlw.hypixel.exceptions;
 
 /**
- * Hypixel API exception.
+ * General Hypixel API exception.
  */
 public class HypixelApiException extends Exception {
-    public HypixelApiException(String message) {
+    public HypixelApiException(final String message) {
         super(message);
     }
 }

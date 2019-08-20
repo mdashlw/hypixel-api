@@ -8,13 +8,13 @@ import java.util.*;
 import java.util.function.Function;
 
 public class DynamicObjectNode extends ObjectNode {
-    public DynamicObjectNode(ObjectNode node) {
+    public DynamicObjectNode(final ObjectNode node) {
         super(JsonNodeFactory.instance);
-        setAll(node);
+        this.setAll(node);
     }
 
-    public <T> T get(String field, T fallback, Function<JsonNode, T> adapter) {
-        JsonNode node = get(field);
+    public final <T> T get(final String field, final T fallback, final Function<? super JsonNode, ? extends T> adapter) {
+        final JsonNode node = this.get(field);
 
         if (node == null || node.isNull()) {
             return fallback;
@@ -23,18 +23,18 @@ public class DynamicObjectNode extends ObjectNode {
         return adapter.apply(node);
     }
 
-    public <T> List<T> getList(String field, List<T> fallback, Function<JsonNode, T> adapter) {
-        JsonNode arrayNode = get(field);
+    public final <T> List<T> getList(final String field, final List<T> fallback, final Function<? super JsonNode, ? extends T> adapter) {
+        final JsonNode arrayNode = this.get(field);
 
         if (arrayNode == null || !arrayNode.isArray()) {
             return fallback;
         }
 
-        Iterator<JsonNode> elements = arrayNode.elements();
-        ArrayList<T> objects = new ArrayList<>();
+        final Iterator<JsonNode> elements = arrayNode.elements();
+        final ArrayList<T> objects = new ArrayList<>();
 
         while (elements.hasNext()) {
-            JsonNode node = elements.next();
+            final JsonNode node = elements.next();
 
             objects.add(adapter.apply(node));
         }
@@ -42,20 +42,20 @@ public class DynamicObjectNode extends ObjectNode {
         return objects;
     }
 
-    public <K, V> Map<K, V> getMap(String field, Map<K, V> fallback, Function<String, K> keyAdapter, Function<JsonNode, V> valueAdapter) {
-        JsonNode objectNode = get(field);
+    public final <K, V> Map<K, V> getMap(final String field, final Map<K, V> fallback, final Function<? super String, ? extends K> keyAdapter, final Function<? super JsonNode, ? extends V> valueAdapter) {
+        final JsonNode objectNode = this.get(field);
 
         if (objectNode == null || !objectNode.isObject()) {
             return fallback;
         }
 
-        Iterator<Map.Entry<String, JsonNode>> fields = objectNode.fields();
-        HashMap<K, V> objects = new HashMap<>();
+        final Iterator<Map.Entry<String, JsonNode>> fields = objectNode.fields();
+        final HashMap<K, V> objects = new HashMap<>();
 
         while (fields.hasNext()) {
-            Map.Entry<String, JsonNode> entry = fields.next();
-            String key = entry.getKey();
-            JsonNode value = entry.getValue();
+            final Map.Entry<String, JsonNode> entry = fields.next();
+            final String key = entry.getKey();
+            final JsonNode value = entry.getValue();
 
             objects.put(keyAdapter.apply(key), valueAdapter.apply(value));
         }

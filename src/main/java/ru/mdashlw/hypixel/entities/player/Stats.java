@@ -8,8 +8,8 @@ import ru.mdashlw.hypixel.util.DynamicObjectNode;
 /**
  * Player stats.
  */
-public class Stats extends DynamicObjectNode {
-    Stats(ObjectNode node) {
+public final class Stats extends DynamicObjectNode {
+    Stats(final ObjectNode node) {
         super(node);
     }
 
@@ -19,7 +19,7 @@ public class Stats extends DynamicObjectNode {
      * @return SkyWars stats or null.
      */
     public SkyWars getSkyWars() {
-        return get("SkyWars", null, node -> new SkyWars((ObjectNode) node));
+        return this.get("SkyWars", null, node -> new SkyWars((ObjectNode) node));
     }
 
     /**
@@ -28,6 +28,6 @@ public class Stats extends DynamicObjectNode {
      * @return UHC stats or null.
      */
     public UHC getUHC() {
-        return get("UHC", null, node -> new UHC((ObjectNode) node));
+        return this.get("UHC", null, node -> new UHC((ObjectNode) node));
     }
 }

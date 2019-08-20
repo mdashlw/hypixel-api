@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * Vanty meta.
  */
-public class VanityMeta extends DynamicObjectNode {
-    VanityMeta(ObjectNode node) {
+public final class VanityMeta extends DynamicObjectNode {
+    VanityMeta(final ObjectNode node) {
         super(node);
     }
 
@@ -21,6 +21,6 @@ public class VanityMeta extends DynamicObjectNode {
      * @return Packages.
      */
     public List<String> getPackages() {
-        return getList("packages", Collections.emptyList(), JsonNode::asText);
+        return this.getList("packages", Collections.emptyList(), JsonNode::asText);
     }
 }

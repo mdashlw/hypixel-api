@@ -5,7 +5,7 @@
 
     <groupId>ru.mdashlw.hypixel</groupId>
     <artifactId>hypixel-api</artifactId>
-    <version>6.0.3</version>
+    <version>6.0.4</version>
     <packaging>jar</packaging>
 
     <name>ru.mdashlw.hypixel hypixel-api</name>

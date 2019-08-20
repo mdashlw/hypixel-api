@@ -7,15 +7,15 @@ public abstract class Reply<T> {
 
     public abstract T getValue();
 
-    public boolean isSuccess() {
-        return success;
+    public final boolean isSuccess() {
+        return this.success;
     }
 
-    public String getCause() {
-        return cause;
+    public final String getCause() {
+        return this.cause;
     }
 
-    public boolean isThrottle() {
-        return throttle;
+    public final boolean isThrottle() {
+        return this.throttle;
     }
 }

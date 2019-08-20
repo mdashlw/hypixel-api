@@ -10,8 +10,8 @@ import java.util.Map;
 /**
  * Social media for a player.
  */
-public class SocialMedia extends DynamicObjectNode {
-    SocialMedia(ObjectNode node) {
+public final class SocialMedia extends DynamicObjectNode {
+    SocialMedia(final ObjectNode node) {
         super(node);
     }
 
@@ -21,7 +21,7 @@ public class SocialMedia extends DynamicObjectNode {
      * @return Social media links.
      */
     public Map<Type, String> getLinks() {
-        return getMap("links", Collections.emptyMap(), Type::valueOf, JsonNode::asText);
+        return this.getMap("links", Collections.emptyMap(), Type::valueOf, JsonNode::asText);
     }
 
     public enum Type {
@@ -61,14 +61,14 @@ public class SocialMedia extends DynamicObjectNode {
          */
         DISCORD("Discord", false);
 
-        private String localizedName;
-        private boolean link;
+        private final String localizedName;
+        private final boolean link;
 
-        Type(String localizedName) {
+        Type(final String localizedName) {
             this(localizedName, true);
         }
 
-        Type(String localizedName, boolean link) {
+        Type(final String localizedName, final boolean link) {
             this.localizedName = localizedName;
             this.link = link;
         }
@@ -79,7 +79,7 @@ public class SocialMedia extends DynamicObjectNode {
          * @return Localized name.
          */
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
 
         /**
@@ -90,7 +90,7 @@ public class SocialMedia extends DynamicObjectNode {
          * with a URL.
          */
         public boolean isLink() {
-            return link;
+            return this.link;
         }
     }
 }

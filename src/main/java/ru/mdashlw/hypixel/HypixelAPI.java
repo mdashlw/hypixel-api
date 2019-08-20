@@ -21,20 +21,20 @@ import java.util.concurrent.TimeUnit;
 /**
  * Hypixel API.
  */
-public class HypixelAPI {
+public final class HypixelAPI {
     /**
      * Base URL for the Hypixel API.
      */
     public static final String BASE_URL = "https://api.hypixel.net/";
 
+    private final OkHttpClient okHttpClient;
+    private final ObjectMapper objectMapper;
     private String key;
-    private OkHttpClient okHttpClient;
-    private ObjectMapper objectMapper;
 
     /**
      * @param key API key.
      */
-    public HypixelAPI(String key) {
+    public HypixelAPI(final String key) {
         this(key, new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
@@ -46,7 +46,7 @@ public class HypixelAPI {
      * @param key          API key.
      * @param okHttpClient OkHttpClient instance.
      */
-    public HypixelAPI(String key, OkHttpClient okHttpClient) {
+    public HypixelAPI(final String key, final OkHttpClient okHttpClient) {
         this(key, okHttpClient, new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false));
     }
@@ -56,7 +56,7 @@ public class HypixelAPI {
      * @param okHttpClient OkHttpClient instance.
      * @param objectMapper ObjectMapper instance.
      */
-    public HypixelAPI(String key, OkHttpClient okHttpClient, ObjectMapper objectMapper) {
+    public HypixelAPI(final String key, final OkHttpClient okHttpClient, final ObjectMapper objectMapper) {
         this.key = key;
         this.okHttpClient = okHttpClient;
         this.objectMapper = objectMapper;
@@ -68,8 +68,8 @@ public class HypixelAPI {
      * @param name Player name.
      * @return Completable future of HypixelPlayer.
      */
-    public CompletableFuture<HypixelPlayer> retrievePlayerByName(String name) {
-        return retrieve(PlayerReply.class, "player", "name", name);
+    public CompletableFuture<HypixelPlayer> retrievePlayerByName(final String name) {
+        return this.retrieve(PlayerReply.class, "player", "name", name);
     }
 
     /**
@@ -78,8 +78,8 @@ public class HypixelAPI {
      * @param uuid Dashed/undashed player UUID.
      * @return Completable future of HypixelPlayer.
      */
-    public CompletableFuture<HypixelPlayer> retrievePlayerByUuid(String uuid) {
-        return retrieve(PlayerReply.class, "player", "uuid", uuid);
+    public CompletableFuture<HypixelPlayer> retrievePlayerByUuid(final String uuid) {
+        return this.retrieve(PlayerReply.class, "player", "uuid", uuid);
     }
 
     /**
@@ -88,8 +88,8 @@ public class HypixelAPI {
      * @param name Guild name.
      * @return Completable future of Guild.
      */
-    public CompletableFuture<Guild> retrieveGuildByName(String name) {
-        return retrieve(GuildReply.class, "guild", "name", name);
+    public CompletableFuture<Guild> retrieveGuildByName(final String name) {
+        return this.retrieve(GuildReply.class, "guild", "name", name);
     }
 
     /**
@@ -98,8 +98,8 @@ public class HypixelAPI {
      * @param player Dashed/undashed player UUID.
      * @return Completable future of Guild.
      */
-    public CompletableFuture<Guild> retrieveGuildByPlayer(String player) {
-        return retrieve(GuildReply.class, "guild", "player", player);
+    public CompletableFuture<Guild> retrieveGuildByPlayer(final String player) {
+        return this.retrieve(GuildReply.class, "guild", "player", player);
     }
 
     /**
@@ -112,8 +112,8 @@ public class HypixelAPI {
      * @param uuid Dashed/undashed player UUID.
      * @return Completable future of Session.
      */
-    public CompletableFuture<Session> retrieveSessionByUuid(String uuid) {
-        return retrieve(SessionReply.class, "session", "uuid", uuid);
+    public CompletableFuture<Session> retrieveSessionByUuid(final String uuid) {
+        return this.retrieve(SessionReply.class, "session", "uuid", uuid);
     }
 
     /**
@@ -122,7 +122,7 @@ public class HypixelAPI {
      * @return Completable future of Key.
      */
     public CompletableFuture<Key> retrieveKey() {
-        return retrieve(KeyReply.class, "key");
+        return this.retrieve(KeyReply.class, "key");
     }
 
     /**
@@ -131,42 +131,42 @@ public class HypixelAPI {
      * @param uuid Dashed/undashed player UUID.
      * @return Completable future of List of Friendship.
      */
-    public CompletableFuture<List<Friendship>> retrieveFriendsByUuid(String uuid) {
-        return retrieve(FriendsReply.class, "friends", "uuid", uuid);
+    public CompletableFuture<List<Friendship>> retrieveFriendsByUuid(final String uuid) {
+        return this.retrieve(FriendsReply.class, "friends", "uuid", uuid);
     }
 
-    private <T> CompletableFuture<T> retrieve(Class<? extends Reply<T>> clazz, String endpoint, String... params) {
+    private <T> CompletableFuture<T> retrieve(final Class<? extends Reply<T>> clazz, final String endpoint, final String... params) {
         if (params.length % 2 != 0) {
             throw new IllegalArgumentException("Need both key and value for parameters");
         }
 
-        StringBuilder url = new StringBuilder()
+        final StringBuilder url = new StringBuilder()
                 .append(BASE_URL)
                 .append(endpoint)
                 .append("?key=")
-                .append(key);
+                .append(this.key);
 
         for (int i = 0; i < params.length - 1; i += 2) {
-            String key = params[i];
-            String value = params[i + 1];
+            final String key = params[i];
+            final String value = params[i + 1];
 
             url.append('&').append(key).append('=').append(value);
         }
 
-        CompletableFuture<T> future = new CompletableFuture<>();
-        Request request = new Request.Builder()
+        final CompletableFuture<T> future = new CompletableFuture<>();
+        final Request request = new Request.Builder()
                 .url(url.toString())
                 .build();
 
-        okHttpClient.newCall(request).enqueue(new Callback() {
+        this.okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(final Call call, final IOException e) {
                 future.completeExceptionally(e);
             }
 
             @Override
-            public void onResponse(Call call, Response response) {
-                ResponseBody body = response.body();
+            public void onResponse(final Call call, final Response response) {
+                final ResponseBody body = response.body();
 
                 // Body is never null in Callback#onResponse.
                 if (body == null) {
@@ -179,15 +179,15 @@ public class HypixelAPI {
                 // and we will get a json parse exception.
                 if (!response.isSuccessful()) {
                     body.close();
-                    future.completeExceptionally(new IllegalStateException("Response was not successful"));
+                    future.completeExceptionally(new IllegalStateException("Response was not successful, status code: " + response.code()));
                     return;
                 }
 
-                Reply<T> reply;
+                final Reply<T> reply;
 
                 try {
-                    reply = objectMapper.readValue(body.string(), clazz);
-                } catch (IOException exception) {
+                    reply = HypixelAPI.this.objectMapper.readValue(body.string(), clazz);
+                } catch (final IOException exception) {
                     future.completeExceptionally(exception);
                     return;
                 }
@@ -211,7 +211,7 @@ public class HypixelAPI {
      * @return Currently set API key.
      */
     public String getKey() {
-        return key;
+        return this.key;
     }
 
     /**
@@ -219,7 +219,7 @@ public class HypixelAPI {
      *
      * @param key New API key.
      */
-    public void setKey(String key) {
+    public void setKey(final String key) {
         this.key = key;
     }
 }

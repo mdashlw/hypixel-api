@@ -32,9 +32,9 @@ public enum GameType {
     PIT("The Pit"),
     SKYBLOCK("SkyBlock");
 
-    private String localizedName;
+    private final String localizedName;
 
-    GameType(String localizedName) {
+    GameType(final String localizedName) {
         this.localizedName = localizedName;
     }
 
@@ -44,6 +44,6 @@ public enum GameType {
      * @return Localized name.
      */
     public String getLocalizedName() {
-        return localizedName;
+        return this.localizedName;
     }
 }

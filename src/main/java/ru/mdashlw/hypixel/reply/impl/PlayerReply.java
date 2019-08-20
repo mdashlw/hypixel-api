@@ -6,12 +6,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import ru.mdashlw.hypixel.entities.player.HypixelPlayer;
 import ru.mdashlw.hypixel.reply.Reply;
 
-public class PlayerReply extends Reply<HypixelPlayer> {
+public final class PlayerReply extends Reply<HypixelPlayer> {
     @JsonProperty
     private JsonNode player;
 
     @Override
     public HypixelPlayer getValue() {
-        return player == null || !player.isObject() ? null : new HypixelPlayer((ObjectNode) player);
+        return this.player == null || !this.player.isObject() ? null : new HypixelPlayer((ObjectNode) this.player);
     }
 }

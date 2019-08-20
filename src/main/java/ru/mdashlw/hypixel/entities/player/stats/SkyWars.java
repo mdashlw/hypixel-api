@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * Stats on SkyWars.
  */
-public class SkyWars extends DynamicObjectNode {
-    public SkyWars(ObjectNode node) {
+public final class SkyWars extends DynamicObjectNode {
+    public SkyWars(final ObjectNode node) {
         super(node);
     }
 
@@ -24,7 +24,7 @@ public class SkyWars extends DynamicObjectNode {
      */
     // TODO Create a enum.
     public List<String> getPackages() {
-        return getList("packages", Collections.emptyList(), JsonNode::asText);
+        return this.getList("packages", Collections.emptyList(), JsonNode::asText);
     }
 
     /**
@@ -33,7 +33,7 @@ public class SkyWars extends DynamicObjectNode {
      * @return Experience.
      */
     public long getExperience() {
-        return get("skywars_experience", 0L, JsonNode::asLong);
+        return this.get("skywars_experience", 0L, JsonNode::asLong);
     }
 
     /**
@@ -44,7 +44,7 @@ public class SkyWars extends DynamicObjectNode {
      * @return Formatted level.
      */
     public String getFormattedLevel() {
-        return get("levelFormatted", null, JsonNode::asText);
+        return this.get("levelFormatted", null, JsonNode::asText);
     }
 
     /**
@@ -53,7 +53,7 @@ public class SkyWars extends DynamicObjectNode {
      * @return Overall wins.
      */
     public int getWins() {
-        return get("wins", 0, JsonNode::asInt);
+        return this.get("wins", 0, JsonNode::asInt);
     }
 
     /**
@@ -62,7 +62,7 @@ public class SkyWars extends DynamicObjectNode {
      * @return Overall losses.
      */
     public int getLosses() {
-        return get("losses", 0, JsonNode::asInt);
+        return this.get("losses", 0, JsonNode::asInt);
     }
 
     /**
@@ -71,7 +71,7 @@ public class SkyWars extends DynamicObjectNode {
      * @return Overall kills.
      */
     public int getKills() {
-        return get("kills", 0, JsonNode::asInt);
+        return this.get("kills", 0, JsonNode::asInt);
     }
 
     /**
@@ -80,7 +80,7 @@ public class SkyWars extends DynamicObjectNode {
      * @return Overall deaths.
      */
     public int getDeaths() {
-        return get("deaths", 0, JsonNode::asInt);
+        return this.get("deaths", 0, JsonNode::asInt);
     }
 
     /**
@@ -89,7 +89,7 @@ public class SkyWars extends DynamicObjectNode {
      * @return Souls.
      */
     public int getSouls() {
-        return get("souls", 0, JsonNode::asInt);
+        return this.get("souls", 0, JsonNode::asInt);
     }
 
     /**
@@ -98,7 +98,7 @@ public class SkyWars extends DynamicObjectNode {
      * @return Cosmetic tokens.
      */
     public int getCosmeticTokens() {
-        return get("cosmetic_tokens", 0, JsonNode::asInt);
+        return this.get("cosmetic_tokens", 0, JsonNode::asInt);
     }
 
     /**
@@ -107,7 +107,7 @@ public class SkyWars extends DynamicObjectNode {
      * @return Total time played.
      */
     public long getTimePlayed() {
-        return get("time_played", 0L, JsonNode::asLong);
+        return this.get("time_played", 0L, JsonNode::asLong);
     }
 
     /**
@@ -116,8 +116,8 @@ public class SkyWars extends DynamicObjectNode {
      * @param mode Mode.
      * @return Wins on {@code mode}.
      */
-    public int getWins(Mode mode) {
-        return get("wins_" + mode.apiName, 0, JsonNode::asInt);
+    public int getWins(final Mode mode) {
+        return this.get("wins_" + mode.apiName, 0, JsonNode::asInt);
     }
 
     /**
@@ -126,8 +126,8 @@ public class SkyWars extends DynamicObjectNode {
      * @param mode Mode.
      * @return Losses on {@code mode}.
      */
-    public int getLosses(Mode mode) {
-        return get("losses_" + mode.apiName, 0, JsonNode::asInt);
+    public int getLosses(final Mode mode) {
+        return this.get("losses_" + mode.apiName, 0, JsonNode::asInt);
     }
 
     /**
@@ -136,8 +136,8 @@ public class SkyWars extends DynamicObjectNode {
      * @param mode Mode.
      * @return Kills on {@code mode}.
      */
-    public int getKills(Mode mode) {
-        return get("kills_" + mode.apiName, 0, JsonNode::asInt);
+    public int getKills(final Mode mode) {
+        return this.get("kills_" + mode.apiName, 0, JsonNode::asInt);
     }
 
     /**
@@ -146,8 +146,8 @@ public class SkyWars extends DynamicObjectNode {
      * @param mode Mode.
      * @return Deaths on {@code mode}.
      */
-    public int getDeaths(Mode mode) {
-        return get("deaths_" + mode.apiName, 0, JsonNode::asInt);
+    public int getDeaths(final Mode mode) {
+        return this.get("deaths_" + mode.apiName, 0, JsonNode::asInt);
     }
 
     /**
@@ -156,8 +156,8 @@ public class SkyWars extends DynamicObjectNode {
      * @param mode Mode.
      * @return Total time played on {@code mode}.
      */
-    public long getTimePlayed(Mode mode) {
-        return get("time_played_" + mode.apiName, 0L, JsonNode::asLong);
+    public long getTimePlayed(final Mode mode) {
+        return this.get("time_played_" + mode.apiName, 0L, JsonNode::asLong);
     }
 
     /**
@@ -166,8 +166,8 @@ public class SkyWars extends DynamicObjectNode {
      * @param type Cosmetic type.
      * @return Currently equipped package for {@code type} or null.
      */
-    public String getActiveCosmetic(CosmeticType type) {
-        return get("active_" + type.apiName, null, node -> {
+    public String getActiveCosmetic(final CosmeticType type) {
+        return this.get("active_" + type.apiName, null, node -> {
             String value = node.asText();
 
             value = StringUtil.stripUnderscoresAndDashes(value);
@@ -186,11 +186,11 @@ public class SkyWars extends DynamicObjectNode {
      * @return Currently active kit on {@code type} or null.
      */
     @SuppressWarnings("unchecked")
-    public <T extends Kit> T getActiveKit(Type type) {
-        return get("activeKit_" + type.apiName, null, node -> {
-            String text = node.asText();
+    public <T extends Kit> T getActiveKit(final Type type) {
+        return this.get("activeKit_" + type.apiName, null, node -> {
+            final String text = node.asText();
 
-            for (Kit kit : type.kits) {
+            for (final Kit kit : type.kits) {
                 if (kit.getPackageName().equals(text)) {
                     return (T) kit;
                 }
@@ -207,10 +207,10 @@ public class SkyWars extends DynamicObjectNode {
      * @param division Ranked division.
      * @return Does player have any rewards from {@code division}.
      */
-    public boolean hasRewards(RankedDivision division) {
-        List<String> packages = getPackages();
+    public boolean hasRewards(final RankedDivision division) {
+        final List<String> packages = this.getPackages();
 
-        for (RankedReward reward : division.getRewards()) {
+        for (final RankedReward reward : division.getRewards()) {
             if (packages.contains(reward.packageName)) {
                 return true;
             }
@@ -225,10 +225,10 @@ public class SkyWars extends DynamicObjectNode {
      * @return Ranked rewards.
      */
     public List<RankedReward> getRankedRewards() {
-        List<String> packages = getPackages();
-        List<RankedReward> rewards = new ArrayList<>();
+        final List<String> packages = this.getPackages();
+        final List<RankedReward> rewards = new ArrayList<>();
 
-        for (RankedReward reward : RankedReward.values()) {
+        for (final RankedReward reward : RankedReward.values()) {
             if (packages.contains(reward.packageName)) {
                 rewards.add(reward);
             }
@@ -246,11 +246,11 @@ public class SkyWars extends DynamicObjectNode {
         MEGA("MEGA", "Mega", MegaKit.values()),
         RANKED("RANKED", "Ranked", RankedKit.values());
 
-        private String apiName;
-        private String localizedName;
-        private Kit[] kits;
+        private final String apiName;
+        private final String localizedName;
+        private final Kit[] kits;
 
-        Type(String apiName, String localizedName, Kit[] kits) {
+        Type(final String apiName, final String localizedName, final Kit[] kits) {
             this.apiName = apiName;
             this.localizedName = localizedName;
             this.kits = kits;
@@ -262,7 +262,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return API name.
          */
         public String getApiName() {
-            return apiName;
+            return this.apiName;
         }
 
         /**
@@ -271,7 +271,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return Localized name.
          */
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
 
         /**
@@ -280,7 +280,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return Available kits for game type.
          */
         public Kit[] getKits() {
-            return kits;
+            return this.kits;
         }
     }
 
@@ -297,10 +297,10 @@ public class SkyWars extends DynamicObjectNode {
         MEGA("mega", "Mega"),
         RANKED("ranked", "Ranked");
 
-        private String apiName;
-        private String localizedName;
+        private final String apiName;
+        private final String localizedName;
 
-        Mode(String apiName, String localizedName) {
+        Mode(final String apiName, final String localizedName) {
             this.apiName = apiName;
             this.localizedName = localizedName;
         }
@@ -311,7 +311,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return API name.
          */
         public String getApiName() {
-            return apiName;
+            return this.apiName;
         }
 
         /**
@@ -320,7 +320,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return Localized name.
          */
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
     }
 
@@ -337,10 +337,10 @@ public class SkyWars extends DynamicObjectNode {
         KILL_MESSAGES("killmessages", "Kill Messages"),
         SPRAYS("sprays", "Sprays");
 
-        private String apiName;
-        private String localizedName;
+        private final String apiName;
+        private final String localizedName;
 
-        CosmeticType(String apiName, String localizedName) {
+        CosmeticType(final String apiName, final String localizedName) {
             this.apiName = apiName;
             this.localizedName = localizedName;
         }
@@ -351,7 +351,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return API name.
          */
         public String getApiName() {
-            return apiName;
+            return this.apiName;
         }
 
         /**
@@ -360,7 +360,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return Localized name.
          */
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
     }
 
@@ -408,22 +408,22 @@ public class SkyWars extends DynamicObjectNode {
         MONSTER_TRAINER("kit_mythical_monster-trainer", "Monster Trainer"),
         NETHER_LORD("kit_mythical_nether-lord", "Nether Lord");
 
-        private String packageName;
-        private String localizedName;
+        private final String packageName;
+        private final String localizedName;
 
-        NormalKit(String packageName, String localizedName) {
+        NormalKit(final String packageName, final String localizedName) {
             this.packageName = packageName;
             this.localizedName = localizedName;
         }
 
         @Override
         public String getPackageName() {
-            return packageName;
+            return this.packageName;
         }
 
         @Override
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
     }
 
@@ -471,22 +471,22 @@ public class SkyWars extends DynamicObjectNode {
         MONSTER_TRAINER("kit_mythical_monster-trainer", "Monster Trainer"),
         NETHER_LORD("kit_mythical_nether-lord", "Nether Lord");
 
-        private String packageName;
-        private String localizedName;
+        private final String packageName;
+        private final String localizedName;
 
-        InsaneKit(String packageName, String localizedName) {
+        InsaneKit(final String packageName, final String localizedName) {
             this.packageName = packageName;
             this.localizedName = localizedName;
         }
 
         @Override
         public String getPackageName() {
-            return packageName;
+            return this.packageName;
         }
 
         @Override
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
     }
 
@@ -510,22 +510,22 @@ public class SkyWars extends DynamicObjectNode {
         FISHERMAN("kit_mega_mega_fisherman", "Fisherman"),
         PYROMANIAC("kit_mega_mega_pyromaniac", "Pyromaniac");
 
-        private String packageName;
-        private String localizedName;
+        private final String packageName;
+        private final String localizedName;
 
-        MegaKit(String packageName, String localizedName) {
+        MegaKit(final String packageName, final String localizedName) {
             this.packageName = packageName;
             this.localizedName = localizedName;
         }
 
         @Override
         public String getPackageName() {
-            return packageName;
+            return this.packageName;
         }
 
         @Override
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
     }
 
@@ -546,22 +546,22 @@ public class SkyWars extends DynamicObjectNode {
         HOUND("kit_ranked_ranked_hound", "Hound"),
         PALADIN("kit_ranked_ranked_paladin", "Paladin");
 
-        private String packageName;
-        private String localizedName;
+        private final String packageName;
+        private final String localizedName;
 
-        RankedKit(String packageName, String localizedName) {
+        RankedKit(final String packageName, final String localizedName) {
             this.packageName = packageName;
             this.localizedName = localizedName;
         }
 
         @Override
         public String getPackageName() {
-            return packageName;
+            return this.packageName;
         }
 
         @Override
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
     }
 
@@ -576,9 +576,9 @@ public class SkyWars extends DynamicObjectNode {
         STONE("Stone"),
         WOOD("Wood");
 
-        private String localizedName;
+        private final String localizedName;
 
-        RankedDivision(String localizedName) {
+        RankedDivision(final String localizedName) {
             this.localizedName = localizedName;
         }
 
@@ -588,7 +588,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return Localized name.
          */
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
 
         /**
@@ -597,9 +597,9 @@ public class SkyWars extends DynamicObjectNode {
          * @return Rewards you can gain from this division.
          */
         public List<RankedReward> getRewards() {
-            List<RankedReward> rewards = new ArrayList<>();
+            final List<RankedReward> rewards = new ArrayList<>();
 
-            for (RankedReward reward : RankedReward.values()) {
+            for (final RankedReward reward : RankedReward.values()) {
                 if (reward.division == this) {
                     rewards.add(reward);
                 }
@@ -630,11 +630,11 @@ public class SkyWars extends DynamicObjectNode {
         BLOOD_EXPLOSION(RankedDivision.GOLD, "killeffect_blood_explosion", "Blood Explosion"),
         HEARTS(RankedDivision.GOLD, "projectiletrail_hearts", "Hearts");
 
-        private RankedDivision division;
-        private String packageName;
-        private String localizedName;
+        private final RankedDivision division;
+        private final String packageName;
+        private final String localizedName;
 
-        RankedReward(RankedDivision division, String packageName, String localizedName) {
+        RankedReward(final RankedDivision division, final String packageName, final String localizedName) {
             this.division = division;
             this.packageName = packageName;
             this.localizedName = localizedName;
@@ -646,7 +646,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return Division this ranked reward can be gained from.
          */
         public RankedDivision getDivision() {
-            return division;
+            return this.division;
         }
 
         /**
@@ -655,7 +655,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return Package name.
          */
         public String getPackageName() {
-            return packageName;
+            return this.packageName;
         }
 
         /**
@@ -664,7 +664,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return Localized name.
          */
         public String getLocalizedName() {
-            return localizedName;
+            return this.localizedName;
         }
     }
 
@@ -679,10 +679,10 @@ public class SkyWars extends DynamicObjectNode {
         STONE(RankedDivision.STONE, "hat_stone_steve"),
         WOOD(RankedDivision.WOOD, "hat_wood_steve");
 
-        private RankedDivision division;
-        private String packageName;
+        private final RankedDivision division;
+        private final String packageName;
 
-        RankedHat(RankedDivision division, String packageName) {
+        RankedHat(final RankedDivision division, final String packageName) {
             this.division = division;
             this.packageName = packageName;
         }
@@ -693,7 +693,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return Division you can gain this hat form.
          */
         public RankedDivision getDivision() {
-            return division;
+            return this.division;
         }
 
         /**
@@ -702,7 +702,7 @@ public class SkyWars extends DynamicObjectNode {
          * @return Package name.
          */
         public String getPackageName() {
-            return packageName;
+            return this.packageName;
         }
     }
 

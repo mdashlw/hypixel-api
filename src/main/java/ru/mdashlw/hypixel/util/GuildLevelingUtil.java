@@ -5,7 +5,7 @@ package ru.mdashlw.hypixel.util;
  *
  * @author Plancke
  */
-public class GuildLevelingUtil {
+public final class GuildLevelingUtil {
     public static final int[] EXP_NEEDED = new int[]{
             100000,
             150000,
@@ -28,7 +28,7 @@ public class GuildLevelingUtil {
         int level = 0;
 
         for (int i = 0; ; i++) {
-            int need = i >= EXP_NEEDED.length ? EXP_NEEDED[EXP_NEEDED.length - 1] : EXP_NEEDED[i];
+            final int need = i >= EXP_NEEDED.length ? EXP_NEEDED[EXP_NEEDED.length - 1] : EXP_NEEDED[i];
 
             exp -= need;
 

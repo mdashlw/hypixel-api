@@ -5,7 +5,7 @@ package ru.mdashlw.hypixel.exceptions;
  * means you have made over 120 queries in one minute.
  * Abuse of the API will lead to your API key being banned.
  */
-public class HypixelApiThrottleException extends Exception {
+public final class HypixelApiThrottleException extends HypixelApiException {
     public HypixelApiThrottleException() {
         super("API throttle!");
     }
