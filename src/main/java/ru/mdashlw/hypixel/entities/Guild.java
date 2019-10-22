@@ -224,6 +224,7 @@ public final class Guild {
         private String rank;
         private long joined;
         private int questParticipation;
+        private Map<String, Integer> expHistory;
 
         /**
          * Undashed UUID.
@@ -254,6 +255,10 @@ public final class Guild {
 
         public int getQuestParticipation() {
             return this.questParticipation;
+        }
+
+        public Map<String, Integer> getExpHistory() {
+            return this.expHistory;
         }
     }
 
